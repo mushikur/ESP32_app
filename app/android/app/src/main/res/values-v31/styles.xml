@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LaunchTheme" parent="EspIoTWindow">
+        <item name="android:windowBackground">@color/espiot_background</item>
+        <item name="android:windowSplashScreenBackground">@color/espiot_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/espiot_splash_motion</item>
+        <item name="android:windowSplashScreenAnimationDuration">440</item>
+    </style>
+</resources>

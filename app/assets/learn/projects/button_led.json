@@ -1,0 +1,310 @@
+{
+  "id": "button_led",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [760,357],
+    "nodes": {
+      "ESP": {"rect":[35,22,176,300],"left":[],"right":["GPIO23","GPIO18","GND"]},
+      "R1": {"rect":[303,64,124,66],"left":["1"],"right":["2"]},
+      "D1": {"rect":[504,64,124,66],"left":["A"],"right":["K"]},
+      "SW1": {"rect":[353,139,155,66],"left":["A"],"right":["B"]}
+    },
+    "bends": {
+      "D1.K>ESP.GND": [[694,97],[694,247]],
+      "SW1.B>ESP.GND": [[590,172],[590,247]]
+    }
+  },
+  "title": {
+    "en": "Push Button LED",
+    "bn": "বোতাম দিয়ে LED"
+  },
+  "intro": {
+    "en": "Press a real button to light an LED.",
+    "bn": "বাস্তব বোতাম চেপে LED জ্বালান।"
+  },
+  "overview": {
+    "en": "GPIO18 reads the button. The ESP32’s internal pull-up holds the pin high when the switch is open. Pressing joins the pin to ground, and the sketch lights the LED.",
+    "bn": "GPIO18 বোতামের অবস্থা পড়ে। সুইচ খোলা থাকলে ESP32-এর ভেতরের পুল-আপ পিনটি হাই রাখে। চাপলে পিন গ্রাউন্ডে যুক্ত হয় এবং স্কেচ LED জ্বালায়।"
+  },
+  "difficulty": "beginner",
+  "minutes": 25,
+  "categories": [
+    "beginner",
+    "lighting"
+  ],
+  "art": "button",
+  "objectives": [
+    {
+      "en": "Read a GPIO input",
+      "bn": "GPIO ইনপুট পড়া"
+    },
+    {
+      "en": "Use a pull-up and a normally open switch",
+      "bn": "পুল-আপ ও সাধারণত খোলা সুইচ ব্যবহার"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "D1": "red_led",
+    "R1": "resistor330",
+    "SW1": "button"
+  },
+  "gpio": {
+    "ledPin": "GPIO23",
+    "buttonPin": "GPIO18"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO23"
+      ],
+      "to": [
+        "R1",
+        "1"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R1",
+        "2"
+      ],
+      "to": [
+        "D1",
+        "A"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D1",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    },
+    {
+      "from": [
+        "ESP",
+        "GPIO18"
+      ],
+      "to": [
+        "SW1",
+        "A"
+      ],
+      "color": "violet",
+      "why": {
+        "en": "Read the first switch terminal with the internal pull-up enabled.",
+        "bn": "ভেতরের পুল-আপ চালু রেখে সুইচের প্রথম টার্মিনালটি পড়ে।"
+      }
+    },
+    {
+      "from": [
+        "SW1",
+        "B"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Pressing connects the input to ground. Use the same ground row as the LED.",
+        "bn": "চাপলে ইনপুট গ্রাউন্ডে যায়। LED-এর মতো একই গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Use one 330 Ω resistor in series with each LED. Keep the two LED legs in different connected rows.",
+      "bn": "প্রতিটি LED-এর সঙ্গে সিরিজে একটি ৩৩০ Ω রেজিস্টর লাগান। LED-এর দুই পা ভিন্ন সংযুক্ত সারিতে বসান।"
+    },
+    {
+      "en": "Use the button between GPIO18 and GND. The built-in pull-up supplies the released state.",
+      "bn": "GPIO18 ও GND-এর মাঝে বোতাম দিন। বোতাম ছেড়ে দিলে বিল্ট-ইন পুল-আপ ইনপুটের অবস্থা নির্ধারণ করে।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h provides the types and functions used by this sketch, including the GPIO and timing functions supplied by the ESP32 board package.",
+        "bn": "Arduino.h স্কেচের জন্য দরকারি ডেটা টাইপ ও ফাংশন দেয়। এর মধ্যে ESP32 বোর্ড প্যাকেজের GPIO ও সময় নিয়ন্ত্রণের ফাংশন রয়েছে।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        4
+      ],
+      "anchor": "constexpr uint8_t ledPin = 23;",
+      "title": {
+        "en": "Name the two pins",
+        "bn": "দুটি পিনের নাম দিন"
+      },
+      "text": {
+        "en": "GPIO23 drives the LED and GPIO18 reads the button. Both numbers are constants and match the wiring guide.",
+        "bn": "GPIO23 LED চালায় আর GPIO18 বোতামের অবস্থা পড়ে। দুটি সংখ্যা স্থির এবং তারের গাইডের সঙ্গে মেলে।"
+      }
+    },
+    {
+      "lines": [
+        6,
+        8
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Start with the LED off",
+        "bn": "LED বন্ধ রেখে শুরু করুন"
+      },
+      "text": {
+        "en": "setup() runs once. It sets the LED pin as OUTPUT and writes LOW to turn it off.",
+        "bn": "setup() একবার চলে। এটি LED পিনকে OUTPUT করে এবং LOW লিখে LED বন্ধ রাখে।"
+      }
+    },
+    {
+      "lines": [
+        9,
+        10
+      ],
+      "anchor": "pinMode(buttonPin, INPUT_PULLUP);",
+      "title": {
+        "en": "Enable the input pull-up",
+        "bn": "ইনপুট পুল-আপ চালু করুন"
+      },
+      "text": {
+        "en": "INPUT_PULLUP uses an internal resistor to hold the button input HIGH while the switch is open.",
+        "bn": "সুইচ খোলা থাকলে INPUT_PULLUP ভেতরের রেজিস্টর দিয়ে ইনপুটকে HIGH রাখে।"
+      }
+    },
+    {
+      "lines": [
+        12,
+        14
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Read the button",
+        "bn": "বোতামের অবস্থা পড়ুন"
+      },
+      "text": {
+        "en": "loop() keeps sampling GPIO18. Pressing the button connects it to GND, so digitalRead returns LOW and pressed becomes true.",
+        "bn": "loop() বারবার GPIO18 পড়ে। বোতাম চাপলে পিনটি GND-তে যুক্ত হয়। ফলে digitalRead থেকে LOW আসে এবং pressed হয় true।"
+      }
+    },
+    {
+      "lines": [
+        15,
+        17
+      ],
+      "anchor": "digitalWrite(ledPin, pressed ? HIGH : LOW);",
+      "title": {
+        "en": "Follow the button state",
+        "bn": "বোতাম অনুযায়ী LED চালান"
+      },
+      "text": {
+        "en": "The ? : expression chooses HIGH when pressed is true and LOW otherwise. The short wait spaces out reads before loop() repeats.",
+        "bn": "pressed true হলে ? : দিয়ে HIGH, অন্যথায় LOW বেছে নেওয়া হয়। ছোট বিরতির পর loop() আবার পিনটি পড়ে।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "released_off",
+      "title": {
+        "en": "Release the button",
+        "bn": "বোতাম ছেড়ে দিন"
+      },
+      "action": {
+        "en": "Leave the push button untouched after the sketch starts.",
+        "bn": "স্কেচ চালু হলে পুশ বোতামে চাপ দেবেন না।"
+      },
+      "expected": {
+        "en": "The external LED stays off.",
+        "bn": "বাইরের LED বন্ধ থাকে।"
+      }
+    },
+    {
+      "id": "pressed_on",
+      "title": {
+        "en": "Hold and release the button",
+        "bn": "বোতাম চেপে ধরে ছেড়ে দিন"
+      },
+      "action": {
+        "en": "Hold the push button for about two seconds, then release it.",
+        "bn": "পুশ বোতাম প্রায় দুই সেকেন্ড চেপে ধরে ছেড়ে দিন।"
+      },
+      "expected": {
+        "en": "The external LED stays on while you hold the button and goes off when you release it.",
+        "bn": "বোতাম ধরে রাখলে বাইরের LED জ্বলে থাকে। ছেড়ে দিলে নেভে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The LED never lights",
+        "bn": "LED জ্বলছে না"
+      },
+      "cause": {
+        "en": "The LED may be reversed or its ground may be disconnected.",
+        "bn": "LED উল্টো লাগানো থাকতে পারে বা গ্রাউন্ড সংযোগ বিচ্ছিন্ন হতে পারে।"
+      },
+      "fix": {
+        "en": "Unplug USB. Check the flat edge (K), the resistor path to the anode (A), and the wire to J3 ground. Check that the legs are in separate rows.",
+        "bn": "USB খুলুন। সমতল ধার (K), অ্যানোড (A) পর্যন্ত রেজিস্টরের সংযোগ ও J3 গ্রাউন্ডের তার দেখুন। দুই পা আলাদা সারিতে আছে কি না মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "With power disconnected, find the flat edge or cathode marking. Check whether that leg connects to GND and the other leg connects to the resistor.",
+        "bn": "পাওয়ার বন্ধ রেখে সমতল ধার বা ক্যাথোডের চিহ্ন খুঁজুন। সেই পা GND-তে আর অন্য পা রেজিস্টরে আছে কি না দেখুন।"
+      },
+      "wireId": "R1.2>D1.A"
+    },
+    {
+      "symptom": {
+        "en": "The LED stays on",
+        "bn": "LED সবসময় জ্বলছে"
+      },
+      "cause": {
+        "en": "Both jumper wires may be on two legs that are internally joined.",
+        "bn": "দুটি জাম্পার এমন দুই পায়ে থাকতে পারে যেগুলো ভেতরেই যুক্ত।"
+      },
+      "fix": {
+        "en": "Disconnect power. Use a continuity tester to identify two terminals that only join when pressed. Check that they are in separate breadboard rows.",
+        "bn": "বিদ্যুৎ বিচ্ছিন্ন করুন। কন্টিনিউটি টেস্টার দিয়ে কেবল চাপলে যুক্ত হয় এমন টার্মিনাল খুঁজুন। এগুলো আলাদা সারিতে আছে কি না দেখুন।"
+      },
+      "inspect": {
+        "en": "With power off, check continuity between the two switch terminals. The switch should connect them only when pressed.",
+        "bn": "পাওয়ার বন্ধ রেখে সুইচের দুই টার্মিনালে কন্টিনিউটি দেখুন। বোতাম চাপলেই শুধু সংযোগ হওয়ার কথা।"
+      },
+      "wireId": "ESP.GPIO18>SW1.A"
+    }
+  ]
+}

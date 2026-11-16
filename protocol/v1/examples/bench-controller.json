@@ -1,0 +1,25 @@
+{
+  "protocol": "esp-iot",
+  "version": 1,
+  "deviceId": "0123456789abcdef0123456789abcdef",
+  "revision": 1,
+  "name": "Bench controller",
+  "type": "controller",
+  "auth": "pairing-token",
+  "events": true,
+  "capabilities": [
+    { "id": "led", "type": "switch", "name": "LED", "confirm": false },
+    { "id": "relay_1", "type": "switch", "name": "Relay 1", "confirm": true },
+    { "id": "fan_speed", "type": "range", "name": "Fan speed", "min": 0, "max": 100, "step": 5, "unit": "%", "confirm": false },
+    { "id": "servo_angle", "type": "range", "name": "Servo angle", "min": 0, "max": 180, "step": 1, "unit": "°", "confirm": true },
+    { "id": "temperature", "type": "sensor", "name": "Temperature", "unit": "°C" },
+    { "id": "identify", "type": "action", "name": "Identify", "confirm": false },
+    { "id": "drive", "type": "motion", "name": "Drive", "directions": ["forward", "reverse", "left", "right"], "maxDurationMs": 500 },
+    { "id": "vendor_feature", "type": "x-example-feature", "name": "Vendor feature" },
+    { "id": "relay_2", "type": "switch", "name": "Relay 2", "confirm": true },
+    { "id": "relay_3", "type": "switch", "name": "Relay 3", "confirm": true },
+    { "id": "relay_4", "type": "switch", "name": "Relay 4", "confirm": true },
+    { "id": "motor_limit", "type": "range", "name": "Motor speed limit", "min": 0, "max": 100, "step": 5, "unit": "%", "confirm": true },
+    { "id": "distance", "type": "sensor", "name": "Distance", "unit": "cm" }
+  ]
+}

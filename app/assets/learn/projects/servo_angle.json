@@ -1,0 +1,350 @@
+{
+  "id": "servo_angle",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [760,453],
+    "nodes": {
+      "ESP": {"rect":[35,40,176,234],"left":[],"right":["GPIO18","GND"]},
+      "M1": {"rect":[510,50,156,204],"left":["Signal","V+","GND"],"right":[]},
+      "PS1": {"rect":[301,260,154,132],"left":["GND"],"right":["+5V"]}
+    },
+    "bends": {
+      "ESP.GPIO18>M1.Signal": [[310,118],[310,101]],
+      "PS1.+5V>M1.V+": [[471,326],[471,152]],
+      "PS1.GND>M1.GND": [[270,326],[270,420],[490,420],[490,203]],
+      "PS1.GND>ESP.GND": [[245,326],[245,196]]
+    }
+  },
+  "title": {
+    "en": "Servo Angle Control",
+    "bn": "সার্ভোর কোণ নিয়ন্ত্রণ"
+  },
+  "intro": {
+    "en": "Move an unloaded micro servo between three positions.",
+    "bn": "লোড ছাড়া একটি মাইক্রো সার্ভোকে তিনটি অবস্থানে নাড়ান।"
+  },
+  "overview": {
+    "en": "A FEETECH FS90 moves in response to the width of a pulse. The ESP32 sends one pulse every 20 milliseconds and changes its width to select a new position. Actual angles vary between servos.",
+    "bn": "পালসের দৈর্ঘ্য অনুযায়ী FEETECH FS90 অবস্থান বদলায়। ESP32 প্রতি ২০ মিলিসেকেন্ডে একটি পালস দেয় ও নতুন অবস্থানের জন্য দৈর্ঘ্য বদলায়। সঠিক কোণ সার্ভোভেদে বদলায়।"
+  },
+  "difficulty": "easy",
+  "minutes": 40,
+  "categories": [
+    "beginner",
+    "motors"
+  ],
+  "art": "servo",
+  "objectives": [
+    {
+      "en": "Send position pulses with PWM",
+      "bn": "PWM দিয়ে অবস্থানের পালস পাঠানো"
+    },
+    {
+      "en": "Separate power and signal while sharing ground",
+      "bn": "গ্রাউন্ড সাধারণ রেখে পাওয়ার ও সিগন্যাল আলাদা করা"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "M1": "servo",
+    "PS1": "supply"
+  },
+  "gpio": {
+    "servoPin": "GPIO18"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO18"
+      ],
+      "to": [
+        "M1",
+        "Signal"
+      ],
+      "color": "yellow",
+      "why": {
+        "en": "Send the 3.3 V position signal to the specified FS90. Verify the connector pinout before applying power.",
+        "bn": "নির্দিষ্ট FS90-তে ৩.৩ V অবস্থানের সিগন্যাল পাঠায়। বিদ্যুৎ দেওয়ার আগে কানেক্টরের পিন মিলিয়ে নিন।"
+      }
+    },
+    {
+      "from": [
+        "PS1",
+        "+5V"
+      ],
+      "to": [
+        "M1",
+        "V+"
+      ],
+      "color": "red",
+      "why": {
+        "en": "Power the servo directly from the separate regulated 5 V supply.",
+        "bn": "আলাদা নিয়ন্ত্রিত ৫ V সাপ্লাই থেকে সরাসরি সার্ভোতে বিদ্যুৎ দিন।"
+      }
+    },
+    {
+      "from": [
+        "PS1",
+        "GND"
+      ],
+      "to": [
+        "M1",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Complete the servo power circuit.",
+        "bn": "সার্ভোর পাওয়ার সার্কিট সম্পূর্ণ করে।"
+      }
+    },
+    {
+      "from": [
+        "PS1",
+        "GND"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Join the ground references so the servo can read the signal voltage.",
+        "bn": "গ্রাউন্ড একত্র করুন যাতে সার্ভো সিগন্যাল ভোল্টেজ পড়তে পারে।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Keep the servo unloaded and fingers clear. The external supply’s +5 V goes to the servo only. Share ground with the USB-powered ESP32. Check connector polarity with power off. Switch on the servo supply before plugging in USB. For normal shutdown, unplug USB before switching off the servo supply.",
+      "bn": "সার্ভোতে লোড লাগাবেন না ও আঙুল দূরে রাখুন। বাহ্যিক সাপ্লাইয়ের +৫ V কেবল সার্ভোতে যাবে। USB-চালিত ESP32-এর সঙ্গে গ্রাউন্ড এক করুন। বিদ্যুৎ বন্ধ রেখে কানেক্টরের দিক মিলিয়ে নিন। USB লাগানোর আগে সার্ভোর সাপ্লাই চালু করুন। স্বাভাবিকভাবে বন্ধ করতে আগে USB খুলুন, তারপর সার্ভোর সাপ্লাই বন্ধ করুন।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h provides the types and functions used by this sketch, including the GPIO and timing functions supplied by the ESP32 board package.",
+        "bn": "Arduino.h স্কেচের জন্য দরকারি ডেটা টাইপ ও ফাংশন দেয়। এর মধ্যে ESP32 বোর্ড প্যাকেজের GPIO ও সময় নিয়ন্ত্রণের ফাংশন রয়েছে।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        4
+      ],
+      "anchor": "constexpr uint8_t servoPin = 18;",
+      "title": {
+        "en": "Choose the servo pin and rate",
+        "bn": "সার্ভোর পিন ও পালসের হার বাছুন"
+      },
+      "text": {
+        "en": "GPIO18 carries the signal. A rate of 50 Hz means one pulse cycle every 20 milliseconds.",
+        "bn": "GPIO18 দিয়ে সিগন্যাল যায়। ৫০ Hz মানে প্রতি ২০ মিলিসেকেন্ডে একটি পালস চক্র।"
+      }
+    },
+    {
+      "lines": [
+        5,
+        7
+      ],
+      "anchor": "constexpr uint8_t resolutionBits = 14;",
+      "title": {
+        "en": "Set the timing scale",
+        "bn": "সময়ের স্কেল ঠিক করুন"
+      },
+      "text": {
+        "en": "The PWM generator uses 14-bit resolution and a 20,000 microsecond period. pwmReady remembers whether the PWM channel started.",
+        "bn": "PWM জেনারেটর ১৪-বিট রেজোলিউশন ও ২০,০০০ মাইক্রোসেকেন্ডের পিরিয়ড ব্যবহার করে। pwmReady দিয়ে চ্যানেল চালু হয়েছে কি না মনে রাখা হয়।"
+      }
+    },
+    {
+      "lines": [
+        9,
+        12
+      ],
+      "anchor": "void moveServo(uint16_t pulseUs) {",
+      "title": {
+        "en": "Convert pulse width into duty",
+        "bn": "পালসের দৈর্ঘ্য থেকে ডিউটি বের করুন"
+      },
+      "text": {
+        "en": "moveServo accepts a pulse length in microseconds. The calculation scales that share of the period to 14-bit steps. ledcWrite sends the resulting duty value to the PWM generator.",
+        "bn": "moveServo মাইক্রোসেকেন্ডে পালসের দৈর্ঘ্য নেয়। হিসাবটি পিরিয়ডের সেই অংশকে ১৪-বিট ধাপে রূপ দেয়। ledcWrite PWM জেনারেটরে ডিউটি মানটি পাঠায়।"
+      }
+    },
+    {
+      "lines": [
+        14,
+        16
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Start PWM and serial output",
+        "bn": "PWM ও সিরিয়াল আউটপুট চালু করুন"
+      },
+      "text": {
+        "en": "setup() opens serial output at 115200 baud. ledcAttach configures the output pin, frequency and resolution, and reports whether it succeeded.",
+        "bn": "setup() 115200 baud-এ সিরিয়াল আউটপুট চালু করে। ledcAttach পিন, হার ও রেজোলিউশন সেট করে এবং সেটি সফল হয়েছে কি না জানায়।"
+      }
+    },
+    {
+      "lines": [
+        17,
+        20
+      ],
+      "anchor": "if (!pwmReady) {",
+      "title": {
+        "en": "Report setup failure",
+        "bn": "সেটআপ ব্যর্থ হলে জানান"
+      },
+      "text": {
+        "en": "If PWM setup fails, the sketch prints an error to Serial Monitor and exits setup() before requesting movement.",
+        "bn": "PWM সেটআপ ব্যর্থ হলে স্কেচ Serial Monitor-এ ত্রুটি দেখায় এবং নড়ার নির্দেশ দেওয়ার আগেই setup() থেকে বেরিয়ে যায়।"
+      }
+    },
+    {
+      "lines": [
+        21,
+        23
+      ],
+      "anchor": "moveServo(1500);",
+      "title": {
+        "en": "Start near the center",
+        "bn": "মাঝের কাছ থেকে শুরু করুন"
+      },
+      "text": {
+        "en": "A 1,500 microsecond pulse sets a position near the center. The sketch waits 1.5 seconds so the unloaded servo can settle.",
+        "bn": "১,৫০০ মাইক্রোসেকেন্ডের পালস সার্ভোকে মাঝের কাছাকাছি রাখে। লোড ছাড়া সার্ভো স্থির হতে স্কেচ ১.৫ সেকেন্ড অপেক্ষা করে।"
+      }
+    },
+    {
+      "lines": [
+        25,
+        29
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Skip motion when PWM is unavailable",
+        "bn": "PWM না চললে নড়াচড়া এড়ান"
+      },
+      "text": {
+        "en": "loop() checks pwmReady before each movement sequence. On failure, it waits and returns without sending a position command.",
+        "bn": "নড়ার ধারা শুরুর আগে loop() pwmReady পরীক্ষা করে। ব্যর্থ হলে অপেক্ষা করে এবং অবস্থান বদলের নির্দেশ না দিয়েই ফেরে।"
+      }
+    },
+    {
+      "lines": [
+        30,
+        34
+      ],
+      "anchor": "// Use three positions near the centre and allow the unloaded servo to settle.",
+      "title": {
+        "en": "Move to one side and back",
+        "bn": "এক পাশে গিয়ে মাঝে ফিরুন"
+      },
+      "text": {
+        "en": "The sequence sends 1,200 and then 1,500 microsecond pulses, waiting 1.5 seconds at each position.",
+        "bn": "এই ধারায় ১,২০০ এবং তারপর ১,৫০০ মাইক্রোসেকেন্ডের পালস যায়। প্রতিটি অবস্থানে ১.৫ সেকেন্ড অপেক্ষা হয়।"
+      }
+    },
+    {
+      "lines": [
+        35,
+        39
+      ],
+      "anchor": "moveServo(1800);",
+      "title": {
+        "en": "Move to the other side and repeat",
+        "bn": "অন্য পাশে গিয়ে আবার শুরু করুন"
+      },
+      "text": {
+        "en": "A 1,800 microsecond pulse moves the servo to the other side. The 1,500 microsecond pulse returns it toward center before the cycle repeats.",
+        "bn": "১,৮০০ মাইক্রোসেকেন্ডের পালসে সার্ভো অন্য পাশে যায়। চক্রটি আবার শুরুর আগে ১,৫০০ মাইক্রোসেকেন্ডের পালসে মাঝের দিকে ফেরে।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "three_positions",
+      "title": {
+        "en": "Observe three positions",
+        "bn": "তিনটি অবস্থান দেখুন"
+      },
+      "action": {
+        "en": "With both supplies on after upload, watch the unloaded servo from a safe distance. Keep fingers clear.",
+        "bn": "আপলোডের পর দুটি সাপ্লাই চালু থাকলে নিরাপদ দূরত্বে থেকে লোড ছাড়া সার্ভো দেখুন। আঙুল দূরে রাখুন।"
+      },
+      "expected": {
+        "en": "It pauses at three distinct positions near the center, with about 1.5 seconds between moves.",
+        "bn": "মাঝের কাছাকাছি তিনটি আলাদা অবস্থানে থামে। নড়াচড়ার মাঝে প্রায় ১.৫ সেকেন্ড বিরতি থাকে।"
+      }
+    },
+    {
+      "id": "smooth_motion",
+      "title": {
+        "en": "Check unloaded motion",
+        "bn": "লোড ছাড়া নড়াচড়া দেখুন"
+      },
+      "action": {
+        "en": "Watch and listen through a full cycle. If it buzzes hard, binds, or heats up, turn the servo supply off immediately.",
+        "bn": "একটি পুরো চক্র দেখুন ও শুনুন। জোরে শব্দ হলে, আটকে গেলে বা গরম হলে সার্ভোর সাপ্লাই সঙ্গে সঙ্গে বন্ধ করুন।"
+      },
+      "expected": {
+        "en": "The unloaded servo reaches each position smoothly and pauses without getting stuck or buzzing loudly.",
+        "bn": "লোড ছাড়া সার্ভো মসৃণভাবে প্রতিটি অবস্থানে যায় এবং আটকে যাওয়া বা জোরে শব্দ ছাড়া থামে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The servo does not move",
+        "bn": "সার্ভো নড়ছে না"
+      },
+      "cause": {
+        "en": "The servo may have no power or no common ground.",
+        "bn": "সার্ভোতে বিদ্যুৎ না আসতে পারে বা সাধারণ গ্রাউন্ড নেই।"
+      },
+      "fix": {
+        "en": "Switch both supplies off. Check the 5 V and ground terminals, shared GND, and the IO18 signal wire. Confirm it is an FS90 position servo.",
+        "bn": "দুই সাপ্লাই বন্ধ করুন। ৫ V ও গ্রাউন্ড টার্মিনাল, সাধারণ GND এবং IO18 সিগন্যাল দেখুন। এটি FS90 পজিশন সার্ভো কি না নিশ্চিত করুন।"
+      },
+      "inspect": {
+        "en": "Power both supplies off, then compare the servo connector's signal marking and the GPIO18 label with the schematic.",
+        "bn": "দুই সাপ্লাই বন্ধ করুন। তারপর সার্ভো কানেক্টরের সিগন্যাল চিহ্ন ও GPIO18 লেবেল স্কিম্যাটিকের সঙ্গে মেলান।"
+      },
+      "wireId": "ESP.GPIO18>M1.Signal"
+    },
+    {
+      "symptom": {
+        "en": "The servo jitters or hums",
+        "bn": "সার্ভো কাঁপে বা শব্দ করে"
+      },
+      "cause": {
+        "en": "A weak supply, poor connection, or mechanical load can cause this.",
+        "bn": "দুর্বল সাপ্লাই, ঢিলা সংযোগ বা যান্ত্রিক লোডে এমন হতে পারে।"
+      },
+      "fix": {
+        "en": "Switch it off. Remove the load and use a regulated 5 V supply rated for at least 1 A. Keep the servo at the sketch’s specified pulse widths.",
+        "bn": "বন্ধ করুন। লোড সরিয়ে অন্তত ১ A ক্ষমতার নিয়ন্ত্রিত ৫ V সাপ্লাই ব্যবহার করুন। স্কেচের নির্ধারিত পালসের দৈর্ঘ্য বজায় রাখুন।"
+      },
+      "inspect": {
+        "en": "Turn the supply off if the servo hums or binds. With power off, check for a mechanical load, loose terminals, and the power supply's 5 V and current rating.",
+        "bn": "সার্ভো শব্দ করলে বা আটকে গেলে সাপ্লাই বন্ধ করুন। পাওয়ার বন্ধ রেখে লোড, ঢিলা টার্মিনাল এবং সাপ্লাইয়ের ৫ V ও কারেন্ট রেটিং দেখুন।"
+      },
+      "wireId": "PS1.+5V>M1.V+"
+    }
+  ]
+}

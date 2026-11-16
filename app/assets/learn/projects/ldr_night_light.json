@@ -1,0 +1,407 @@
+{
+  "id": "ldr_night_light",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [760,420],
+    "nodes": {
+      "ESP": {"rect":[35,30,176,360],"left":[],"right":["3V3","GPIO34","GPIO23","GND"]},
+      "R2": {"rect":[267,69,124,66],"left":["1"],"right":["2"]},
+      "LDR1": {"rect":[425,69,124,66],"left":["1"],"right":["2"]},
+      "R3": {"rect":[580,141,124,66],"left":["1"],"right":["2"]},
+      "R1": {"rect":[303,213,124,66],"left":["1"],"right":["2"]},
+      "D1": {"rect":[504,213,124,66],"left":["A"],"right":["K"]}
+    },
+    "bends": {
+      "LDR1.2>R3.1": [[560,102],[560,174]],
+      "R3.2>ESP.GND": [[729,174],[729,318]],
+      "D1.K>ESP.GND": [[670,246],[670,318]]
+    }
+  },
+  "title": {
+    "en": "LDR Night Light",
+    "bn": "LDR রাতের বাতি"
+  },
+  "intro": {
+    "en": "Use a light sensor to turn on an LED in the dark.",
+    "bn": "আলোর সেন্সর দিয়ে অন্ধকারে LED জ্বালান।"
+  },
+  "overview": {
+    "en": "An LDR and two resistors turn light level into a voltage. The ESP32 reads that voltage at GPIO34. When you cover the sensor and the reading drops below your chosen threshold, the LED turns on.",
+    "bn": "একটি LDR ও দুটি রেজিস্টর আলোর মাত্রাকে ভোল্টেজে রূপ দেয়। ESP32 GPIO34 থেকে ভোল্টেজ পড়ে। সেন্সর ঢেকে রিডিং নির্ধারিত সীমার নিচে গেলে LED জ্বলে।"
+  },
+  "difficulty": "easy",
+  "minutes": 40,
+  "categories": [
+    "beginner",
+    "sensors",
+    "lighting",
+    "smartHome"
+  ],
+  "art": "night",
+  "objectives": [
+    {
+      "en": "Build a voltage divider",
+      "bn": "ভোল্টেজ ডিভাইডার বানানো"
+    },
+    {
+      "en": "Measure a voltage and set a threshold",
+      "bn": "ভোল্টেজ মেপে সীমা নির্ধারণ"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "D1": "red_led",
+    "R1": "resistor330",
+    "R2": "resistor10k",
+    "R3": "resistor10k",
+    "LDR1": "ldr"
+  },
+  "gpio": {
+    "ledPin": "GPIO23",
+    "sensorPin": "GPIO34"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO23"
+      ],
+      "to": [
+        "R1",
+        "1"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R1",
+        "2"
+      ],
+      "to": [
+        "D1",
+        "A"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D1",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    },
+    {
+      "from": [
+        "ESP",
+        "3V3"
+      ],
+      "to": [
+        "R2",
+        "1"
+      ],
+      "color": "red",
+      "why": {
+        "en": "Power the divider from the board’s 3V3 pin while the board is powered by USB.",
+        "bn": "বোর্ড USB থেকে বিদ্যুৎ পেলে তার 3V3 পিন থেকে ডিভাইডারে বিদ্যুৎ দিন।"
+      }
+    },
+    {
+      "from": [
+        "R2",
+        "2"
+      ],
+      "to": [
+        "LDR1",
+        "1"
+      ],
+      "color": "yellow",
+      "why": {
+        "en": "The upper 10 kΩ resistor limits the maximum voltage at the sensor input.",
+        "bn": "ওপরের ১০ kΩ রেজিস্টর সেন্সর ইনপুটের সর্বোচ্চ ভোল্টেজ সীমিত করে।"
+      }
+    },
+    {
+      "from": [
+        "LDR1",
+        "2"
+      ],
+      "to": [
+        "R3",
+        "1"
+      ],
+      "color": "green",
+      "why": {
+        "en": "These two legs share a row. This is the divider’s output node.",
+        "bn": "এই দুই পা একই সংযুক্ত সারিতে বসে। এটিই ডিভাইডারের আউটপুট পয়েন্ট।"
+      }
+    },
+    {
+      "from": [
+        "R3",
+        "1"
+      ],
+      "to": [
+        "ESP",
+        "GPIO34"
+      ],
+      "color": "green",
+      "why": {
+        "en": "Use the same output row for IO34. GPIO34 reads voltage and is input-only.",
+        "bn": "একই আউটপুট সারিতে IO34-এর তার লাগান। GPIO34 শুধু ইনপুট, এটি ভোল্টেজ পড়ে।"
+      }
+    },
+    {
+      "from": [
+        "R3",
+        "2"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Connect the lower resistor to the common ground row.",
+        "bn": "নিচের রেজিস্টরটি সাধারণ গ্রাউন্ড সারিতে লাগান।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Use one 330 Ω resistor in series with each LED. Keep the two LED legs in different connected rows.",
+      "bn": "প্রতিটি LED-এর সঙ্গে সিরিজে একটি ৩৩০ Ω রেজিস্টর লাগান। LED-এর দুই পা ভিন্ন সংযুক্ত সারিতে বসান।"
+    },
+    {
+      "en": "Use the 3V3 pin to power the divider and keep both 10 kΩ resistors in the circuit. Keep the LED away from the sensor so its light does not affect the reading.",
+      "bn": "ডিভাইডারে 3V3 পিন ব্যবহার করুন এবং দুটি ১০ kΩ রেজিস্টরই সার্কিটে রাখুন। LED সেন্সর থেকে দূরে রাখুন, যাতে এর আলো রিডিং বদলে না দেয়।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h provides the types and functions used by this sketch, including the GPIO and timing functions supplied by the ESP32 board package.",
+        "bn": "Arduino.h স্কেচের জন্য দরকারি ডেটা টাইপ ও ফাংশন দেয়। এর মধ্যে ESP32 বোর্ড প্যাকেজের GPIO ও সময় নিয়ন্ত্রণের ফাংশন রয়েছে।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        4
+      ],
+      "anchor": "constexpr uint8_t ledPin = 23;",
+      "title": {
+        "en": "Name the output and sensor",
+        "bn": "আউটপুট ও সেন্সরের নাম দিন"
+      },
+      "text": {
+        "en": "GPIO23 drives the LED. GPIO34 is an input-only ADC pin wired to the voltage divider's output.",
+        "bn": "GPIO23 LED চালায়। GPIO34 শুধু ADC ইনপুট। এটি ভোল্টেজ ডিভাইডারের আউটপুটে যুক্ত।"
+      }
+    },
+    {
+      "lines": [
+        5,
+        7
+      ],
+      "anchor": "constexpr uint32_t thresholdMv = 650;  // Adjust using your measured values.",
+      "title": {
+        "en": "Set a threshold and a margin",
+        "bn": "সীমা ও তার চারপাশের ব্যবধান ঠিক করুন"
+      },
+      "text": {
+        "en": "650 mV is a starting point for your measured light levels. The 40 mV margin on either side keeps the light steady near the threshold. lampOn remembers the last decision.",
+        "bn": "৬৫০ mV দিয়ে শুরু করুন এবং নিজের আলো মেপে মান বদলান। দুই পাশে ৪০ mV ব্যবধান থাকায় সীমার কাছে LED বারবার বদলায় না। lampOn আগের সিদ্ধান্ত মনে রাখে।"
+      }
+    },
+    {
+      "lines": [
+        9,
+        12
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Start serial output and set the LED pin",
+        "bn": "সিরিয়াল আউটপুট ও LED পিন চালু করুন"
+      },
+      "text": {
+        "en": "setup() runs once. Serial.begin sets 115200 baud. The next two lines set GPIO23 as an output and keep the LED off initially.",
+        "bn": "setup() একবার চলে। Serial.begin দিয়ে 115200 baud সেট হয়। পরের দুই লাইন GPIO23 আউটপুট করে এবং শুরুতে LED বন্ধ রাখে।"
+      }
+    },
+    {
+      "lines": [
+        13,
+        14
+      ],
+      "anchor": "analogSetPinAttenuation(sensorPin, ADC_11db);",
+      "title": {
+        "en": "Set the ADC input range",
+        "bn": "ADC ইনপুটের রেঞ্জ সেট করুন"
+      },
+      "text": {
+        "en": "analogSetPinAttenuation selects the ADC_11db input setting for GPIO34. This setting covers the circuit's nominal divider output.",
+        "bn": "analogSetPinAttenuation দিয়ে GPIO34-তে ADC_11db সেটিং বসে। সার্কিটের ডিভাইডারের প্রত্যাশিত ভোল্টেজ এই রেঞ্জের মধ্যে থাকে।"
+      }
+    },
+    {
+      "lines": [
+        16,
+        17
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Measure the light sensor",
+        "bn": "সেন্সরের ভোল্টেজ মাপুন"
+      },
+      "text": {
+        "en": "Each loop() pass reads the analog pin with analogReadMilliVolts. The result is in millivolts and rises when more light reaches this divider.",
+        "bn": "প্রতিবার loop()-এ analogReadMilliVolts দিয়ে অ্যানালগ পিন পড়া হয়। ফল মিলিভোল্টে আসে। ডিভাইডারের সেন্সরে বেশি আলো পড়লে মান বাড়ে।"
+      }
+    },
+    {
+      "lines": [
+        18,
+        22
+      ],
+      "anchor": "if (lightMv < thresholdMv - bandMv) {",
+      "title": {
+        "en": "Decide when to switch",
+        "bn": "কখন বদলাবে ঠিক করুন"
+      },
+      "text": {
+        "en": "Below the lower edge the lamp is on. Above the upper edge it is off. Between the two edges, lampOn keeps its previous value.",
+        "bn": "নিচের সীমার কম হলে বাতি জ্বলে। ওপরের সীমার বেশি হলে নেভে। দুই সীমার মাঝে lampOn-এর আগের মান থাকে।"
+      }
+    },
+    {
+      "lines": [
+        23,
+        23
+      ],
+      "anchor": "digitalWrite(ledPin, lampOn ? HIGH : LOW);",
+      "title": {
+        "en": "Apply the decision",
+        "bn": "সিদ্ধান্তটি LED-তে প্রয়োগ করুন"
+      },
+      "text": {
+        "en": "The conditional expression sends HIGH to GPIO23 if lampOn is true, or LOW otherwise.",
+        "bn": "lampOn true হলে শর্তযুক্ত এক্সপ্রেশন GPIO23-এ HIGH পাঠায়। অন্যথায় LOW পাঠায়।"
+      }
+    },
+    {
+      "lines": [
+        24,
+        26
+      ],
+      "anchor": "Serial.printf(\"Light input: %lu mV\\n\", static_cast<unsigned long>(lightMv));",
+      "title": {
+        "en": "Print the reading and wait",
+        "bn": "রিডিং দেখান ও অপেক্ষা করুন"
+      },
+      "text": {
+        "en": "Serial.printf prints the reading followed by a new line. The cast gives %lu the unsigned long it expects. The sketch waits 200 ms before the next sample.",
+        "bn": "Serial.printf রিডিং দেখিয়ে নতুন লাইন দেয়। %lu-এর জন্য cast মানটিকে unsigned long করে। পরের রিডিংয়ের আগে স্কেচ ২০০ মিলিসেকেন্ড অপেক্ষা করে।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "light_readings",
+      "title": {
+        "en": "Compare light and dark readings",
+        "bn": "আলো ও অন্ধকারের রিডিং তুলনা করুন"
+      },
+      "action": {
+        "en": "Open Serial Monitor at 115200 baud. Note the reading in bright light, then cover the LDR and note the new reading.",
+        "bn": "Serial Monitor-এ 115200 baud বাছুন। আলোতে রিডিং লিখুন। তারপর LDR ঢেকে নতুন রিডিং লিখুন।"
+      },
+      "expected": {
+        "en": "The millivolt reading drops when covered and rises again when exposed to light.",
+        "bn": "ঢাকলে মিলিভোল্ট রিডিং কমে। আলোতে ফেরালে আবার বাড়ে।"
+      }
+    },
+    {
+      "id": "lamp_threshold",
+      "title": {
+        "en": "Test the light threshold",
+        "bn": "আলোর সীমা পরীক্ষা করুন"
+      },
+      "action": {
+        "en": "Use bright and covered readings more than 80 mV apart. If the lamp does not switch, choose their midpoint for thresholdMv, keep it above 40 mV, and verify and upload again.",
+        "bn": "আলো ও ঢাকা অবস্থার রিডিংয়ের পার্থক্য ৮০ mV-এর বেশি রাখুন। বাতি না বদলালে মাঝের মান thresholdMv-তে বসান, ৪০ mV-এর বেশি রাখুন, তারপর Verify ও Upload করুন।"
+      },
+      "expected": {
+        "en": "Covering the LDR turns the LED on. Exposing it to the brighter light turns the LED off.",
+        "bn": "LDR ঢাকলে LED জ্বলে। বেশি আলোতে ফেরালে LED নেভে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The reading stays near zero",
+        "bn": "রিডিং শূন্যের কাছে আটকে আছে"
+      },
+      "cause": {
+        "en": "IO34 may be in the ground row or the divider may have no power.",
+        "bn": "IO34 গ্রাউন্ড সারিতে থাকতে পারে অথবা ডিভাইডারে বিদ্যুৎ আসছে না।"
+      },
+      "fix": {
+        "en": "Unplug USB. Trace the divider from 3V3 through R2 and LDR1 to the shared R3.1 and IO34 row. Verify R3.2 reaches GND.",
+        "bn": "USB খুলুন। 3V3 থেকে R2 ও LDR1 হয়ে R3.1 এবং IO34-এর সাধারণ সারি পর্যন্ত সংযোগ দেখুন। R3.2 থেকে GND মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "At 115200 baud, compare a covered reading with a bright reading. If both stay near zero, disconnect power and trace the IO34 connection.",
+        "bn": "115200 baud-এ ঢাকা ও আলোতে রিডিং মিলিয়ে দেখুন। দুটিই শূন্যের কাছে থাকলে পাওয়ার বন্ধ করে IO34 সংযোগ দেখুন।"
+      },
+      "wireId": "R3.1>ESP.GPIO34"
+    },
+    {
+      "symptom": {
+        "en": "The LED flickers near the switch point",
+        "bn": "সীমার কাছে LED ঝিলমিল করছে"
+      },
+      "cause": {
+        "en": "The LED may be shining onto the LDR or the measured voltages may be too close.",
+        "bn": "LED-এর আলো LDR-এ পড়তে পারে বা দুই ভোল্টেজের মান খুব কাছাকাছি হতে পারে।"
+      },
+      "fix": {
+        "en": "Separate the LED and sensor. Retest bright and covered readings and adjust the threshold between them.",
+        "bn": "LED ও সেন্সর আলাদা করুন। আলো ও ঢাকা অবস্থার রিডিং আবার নিয়ে মাঝামাঝি সীমা বসান।"
+      },
+      "inspect": {
+        "en": "Watch Serial Monitor when the LED switches. See whether the reading jumps when the LED shines on the LDR.",
+        "bn": "LED বদলানোর সময় Serial Monitor দেখুন। LED-এর আলো LDR-এ পড়লে রিডিং হঠাৎ বদলায় কি না দেখুন।"
+      },
+      "wireId": "ESP.GPIO23>R1.1"
+    }
+  ]
+}

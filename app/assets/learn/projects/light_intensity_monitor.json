@@ -1,0 +1,363 @@
+{
+  "id": "light_intensity_monitor",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [
+      760,
+      352
+    ],
+    "nodes": {
+      "ESP": {
+        "rect": [
+          35,
+          30,
+          176,
+          288
+        ],
+        "left": [],
+        "right": [
+          "3V3",
+          "GPIO34",
+          "GND"
+        ]
+      },
+      "R2": {
+        "rect": [
+          267,
+          69,
+          124,
+          66
+        ],
+        "left": [
+          "1"
+        ],
+        "right": [
+          "2"
+        ]
+      },
+      "LDR1": {
+        "rect": [
+          425,
+          69,
+          124,
+          66
+        ],
+        "left": [
+          "1"
+        ],
+        "right": [
+          "2"
+        ]
+      },
+      "R3": {
+        "rect": [
+          580,
+          141,
+          124,
+          66
+        ],
+        "left": [
+          "1"
+        ],
+        "right": [
+          "2"
+        ]
+      }
+    },
+    "bends": {
+      "LDR1.2>R3.1": [
+        [
+          560,
+          102
+        ],
+        [
+          560,
+          174
+        ]
+      ],
+      "R3.2>ESP.GND": [
+        [
+          729,
+          174
+        ],
+        [
+          729,
+          246
+        ]
+      ]
+    }
+  },
+  "title": {
+    "en": "Light Intensity Monitor",
+    "bn": "আলোর মাত্রা পর্যবেক্ষণ"
+  },
+  "intro": {
+    "en": "Compare bright and dim conditions with an ESP32 and a light sensor.",
+    "bn": "ESP32 ও আলোর সেন্সর দিয়ে উজ্জ্বল ও ম্লান আলো তুলনা করুন।"
+  },
+  "overview": {
+    "en": "The LDR and two resistors turn changes in light into changes in voltage. The sketch averages eight voltage samples, then prints the result in millivolts so you can compare different light levels.",
+    "bn": "LDR ও দুটি রেজিস্টর আলোর পরিবর্তনকে ভোল্টেজের পরিবর্তনে রূপ দেয়। স্কেচ আটটি নমুনার গড় মিলিভোল্টে দেখায়, যাতে আলোর মাত্রা তুলনা করা যায়।"
+  },
+  "difficulty": "easy",
+  "minutes": 35,
+  "categories": [
+    "beginner",
+    "sensors"
+  ],
+  "art": "meter",
+  "objectives": [
+    {
+      "en": "Read a light-sensing voltage divider",
+      "bn": "আলো মাপার ভোল্টেজ ডিভাইডার পড়া"
+    },
+    {
+      "en": "Average samples and read Serial Monitor",
+      "bn": "নমুনার গড় করে Serial Monitor পড়া"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "R2": "resistor10k",
+    "R3": "resistor10k",
+    "LDR1": "ldr"
+  },
+  "gpio": {
+    "sensorPin": "GPIO34"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "3V3"
+      ],
+      "to": [
+        "R2",
+        "1"
+      ],
+      "color": "red",
+      "why": {
+        "en": "Power the divider from the board’s 3V3 pin while the board is powered by USB.",
+        "bn": "বোর্ড USB থেকে বিদ্যুৎ পেলে তার 3V3 পিন থেকে ডিভাইডারে বিদ্যুৎ দিন।"
+      }
+    },
+    {
+      "from": [
+        "R2",
+        "2"
+      ],
+      "to": [
+        "LDR1",
+        "1"
+      ],
+      "color": "yellow",
+      "why": {
+        "en": "The upper 10 kΩ resistor limits the maximum voltage at the sensor input.",
+        "bn": "ওপরের ১০ kΩ রেজিস্টর সেন্সর ইনপুটের সর্বোচ্চ ভোল্টেজ সীমিত করে।"
+      }
+    },
+    {
+      "from": [
+        "LDR1",
+        "2"
+      ],
+      "to": [
+        "R3",
+        "1"
+      ],
+      "color": "green",
+      "why": {
+        "en": "These two legs share a row. This is the divider’s output node.",
+        "bn": "এই দুই পা একই সংযুক্ত সারিতে বসে। এটিই ডিভাইডারের আউটপুট পয়েন্ট।"
+      }
+    },
+    {
+      "from": [
+        "R3",
+        "1"
+      ],
+      "to": [
+        "ESP",
+        "GPIO34"
+      ],
+      "color": "green",
+      "why": {
+        "en": "Use the same output row for IO34. GPIO34 reads voltage and is input-only.",
+        "bn": "একই আউটপুট সারিতে IO34-এর তার লাগান। GPIO34 শুধু ইনপুট, এটি ভোল্টেজ পড়ে।"
+      }
+    },
+    {
+      "from": [
+        "R3",
+        "2"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Connect the lower resistor to the common ground row.",
+        "bn": "নিচের রেজিস্টরটি সাধারণ গ্রাউন্ড সারিতে লাগান।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Build the divider from 3V3 as shown and use both 10 kΩ resistors. Keep the ADC input on the shared divider row.",
+      "bn": "দেখানো 3V3 থেকে ডিভাইডার বানান এবং দুটি ১০ kΩ রেজিস্টরই লাগান। ADC ইনপুট ডিভাইডারের যৌথ সারিতে রাখুন।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h supplies the ESP32 board package's pin, timing, and serial functions.",
+        "bn": "Arduino.h থেকে ESP32 বোর্ড প্যাকেজের পিন, সময় ও সিরিয়াল ফাংশন পাওয়া যায়।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        4
+      ],
+      "anchor": "constexpr uint8_t sensorPin = 34;",
+      "title": {
+        "en": "Choose the ADC input and sample count",
+        "bn": "ADC ইনপুট ও নমুনার সংখ্যা বাছুন"
+      },
+      "text": {
+        "en": "GPIO34 is the analog input connected to the divider. Each printed value uses eight samples.",
+        "bn": "GPIO34 ডিভাইডারের সঙ্গে যুক্ত অ্যানালগ ইনপুট। দেখানো প্রতিটি মানে আটটি নমুনা থাকে।"
+      }
+    },
+    {
+      "lines": [
+        6,
+        9
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Set up Serial and the ADC",
+        "bn": "সিরিয়াল ও ADC প্রস্তুত করুন"
+      },
+      "text": {
+        "en": "setup() starts Serial at 115200 baud and configures the ADC_11db range on GPIO34.",
+        "bn": "setup() 115200 baud-এ সিরিয়াল চালু করে ও GPIO34-এর ADC_11db রেঞ্জ সেট করে।"
+      }
+    },
+    {
+      "lines": [
+        11,
+        15
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Collect the samples",
+        "bn": "নমুনা সংগ্রহ করুন"
+      },
+      "text": {
+        "en": "Start with a zero total in each loop. analogReadMilliVolts reads the divider voltage, and the for loop adds eight readings to the total.",
+        "bn": "প্রতি loop-এ যোগফল শূন্য থেকে শুরু হয়। analogReadMilliVolts ডিভাইডারের ভোল্টেজ পড়ে, আর for loop আটটি রিডিং যোগ করে।"
+      }
+    },
+    {
+      "lines": [
+        16,
+        19
+      ],
+      "anchor": "const uint32_t averageMv = totalMv / sampleCount;",
+      "title": {
+        "en": "Average, print, and wait",
+        "bn": "গড়, প্রদর্শন ও অপেক্ষা"
+      },
+      "text": {
+        "en": "Divide the sum by eight to get the average in whole millivolts. Print it, then wait 250 ms before the next group of samples.",
+        "bn": "মোটকে আট দিয়ে ভাগ করলে পূর্ণ মিলিভোল্টে গড় পাওয়া যায়। সেটি দেখিয়ে পরের নমুনা দলের আগে ২৫০ ms অপেক্ষা হয়।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "serial_output",
+      "title": {
+        "en": "Read the voltage in Serial Monitor",
+        "bn": "Serial Monitor-এ ভোল্টেজ পড়ুন"
+      },
+      "action": {
+        "en": "After upload, open Serial Monitor and select 115200 baud.",
+        "bn": "আপলোডের পর Serial Monitor খুলে 115200 baud বাছুন।"
+      },
+      "expected": {
+        "en": "New lines beginning with Light input appear repeatedly, with a value in mV.",
+        "bn": "Light input দিয়ে শুরু হওয়া নতুন লাইন বারবার আসে, সঙ্গে mV-তে একটি মান।"
+      }
+    },
+    {
+      "id": "compare_light",
+      "title": {
+        "en": "Compare light and shade",
+        "bn": "আলো ও ছায়া তুলনা করুন"
+      },
+      "action": {
+        "en": "Record the reading in a bright spot. Cover the LDR, wait for new lines, and then uncover it.",
+        "bn": "উজ্জ্বল আলোতে রিডিং লিখুন। LDR ঢেকে নতুন লাইনের জন্য অপেক্ষা করুন, তারপর খুলে দিন।"
+      },
+      "expected": {
+        "en": "The reading drops in shade and increases again in the brighter light.",
+        "bn": "ছায়ায় রিডিং কমে, উজ্জ্বল আলোতে আবার বাড়ে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The reading stays near zero",
+        "bn": "রিডিং শূন্যের কাছে আটকে আছে"
+      },
+      "cause": {
+        "en": "IO34 may be in the ground row or the divider may have no power.",
+        "bn": "IO34 গ্রাউন্ড সারিতে থাকতে পারে অথবা ডিভাইডারে বিদ্যুৎ আসছে না।"
+      },
+      "fix": {
+        "en": "Unplug USB. Trace the divider from 3V3 through R2 and LDR1 to the shared R3.1 and IO34 row. Verify R3.2 reaches GND.",
+        "bn": "USB খুলুন। 3V3 থেকে R2 ও LDR1 হয়ে R3.1 এবং IO34-এর সাধারণ সারি পর্যন্ত সংযোগ দেখুন। R3.2 থেকে GND মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "At 115200 baud, compare a covered reading with a bright reading. If both stay near zero, disconnect power and trace the IO34 connection.",
+        "bn": "115200 baud-এ ঢাকা ও আলোতে রিডিং মিলিয়ে দেখুন। দুটিই শূন্যের কাছে থাকলে পাওয়ার বন্ধ করে IO34 সংযোগ দেখুন।"
+      },
+      "wireId": "R3.1>ESP.GPIO34"
+    },
+    {
+      "symptom": {
+        "en": "The reading barely changes",
+        "bn": "রিডিং প্রায় বদলায় না"
+      },
+      "cause": {
+        "en": "The light levels may be too similar or IO34 may be on the wrong breadboard row.",
+        "bn": "আলোর মাত্রা খুব কাছাকাছি হতে পারে, অথবা IO34 ভুল ব্রেডবোর্ড সারিতে থাকতে পারে।"
+      },
+      "inspect": {
+        "en": "Compare a bright light with the covered LDR. If there is little change, unplug USB and trace the shared LDR1.2, R3.1 and IO34 row.",
+        "bn": "উজ্জ্বল আলো ও ঢাকা LDR তুলনা করুন। কম পরিবর্তন হলে USB খুলে LDR1.2, R3.1 ও IO34-এর যৌথ সারি দেখুন।"
+      },
+      "fix": {
+        "en": "Move the IO34 jumper to the shared divider row and verify both resistors are 10 kΩ before powering the board again.",
+        "bn": "IO34-এর জাম্পার ডিভাইডারের যৌথ সারিতে দিন এবং আবার পাওয়ার দেওয়ার আগে দুটি রেজিস্টরই ১০ kΩ কি না দেখুন।"
+      },
+      "wireId": "LDR1.2>R3.1"
+    }
+  ]
+}

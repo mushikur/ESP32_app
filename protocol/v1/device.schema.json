@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ESP IoT v1 device descriptor (draft)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "version", "deviceId", "revision", "name", "type", "auth", "events", "capabilities"],
+  "properties": {
+    "protocol": { "const": "esp-iot" },
+    "version": { "const": 1 },
+    "deviceId": { "type": "string", "pattern": "^[a-f0-9]{32}$", "minLength": 32, "maxLength": 32 },
+    "revision": { "type": "integer", "minimum": 1, "maximum": 2147483647 },
+    "name": { "$ref": "#/$defs/label" },
+    "type": { "$ref": "#/$defs/id" },
+    "auth": { "enum": ["none", "pairing-token"] },
+    "events": { "type": "boolean" },
+    "capabilities": {
+      "type": "array",
+      "maxItems": 48,
+      "items": { "$ref": "#/$defs/capability" }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]{0,31}$", "maxLength": 32 },
+    "label": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "unit": { "type": "string", "maxLength": 16 },
+    "capability": {
+      "type": "object",
+      "required": ["id", "type", "name"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "type": "string", "maxLength": 48 },
+        "name": { "$ref": "#/$defs/label" }
+      },
+      "oneOf": [
+        {
+          "required": ["confirm"],
+          "properties": {
+            "type": { "enum": ["switch", "action"] },
+            "confirm": { "type": "boolean" }
+          }
+        },
+        {
+          "required": ["min", "max", "step", "unit", "confirm"],
+          "properties": {
+            "type": { "const": "range" },
+            "min": { "type": "number" },
+            "max": { "type": "number" },
+            "step": { "type": "number", "exclusiveMinimum": 0 },
+            "unit": { "$ref": "#/$defs/unit" },
+            "confirm": { "type": "boolean" }
+          }
+        },
+        {
+          "required": ["unit"],
+          "properties": {
+            "type": { "const": "sensor" },
+            "unit": { "$ref": "#/$defs/unit" }
+          }
+        },
+        {
+          "required": ["directions", "maxDurationMs"],
+          "properties": {
+            "type": { "const": "motion" },
+            "directions": {
+              "type": "array",
+              "items": { "enum": ["forward", "reverse", "left", "right"] },
+              "minItems": 1,
+              "maxItems": 4,
+              "uniqueItems": true
+            },
+            "maxDurationMs": { "type": "integer", "minimum": 100, "maximum": 2000 }
+          }
+        },
+        {
+          "properties": {
+            "type": { "pattern": "^x-[a-z0-9]+-[a-z0-9][a-z0-9_-]*$" },
+            "extension": { "type": "object", "maxProperties": 16 }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

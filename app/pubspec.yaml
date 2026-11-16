@@ -1,0 +1,34 @@
+name: esp_iot
+description: "Local ESP32 control and electronics learning"
+publish_to: 'none'
+version: 1.0.1+2003
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  crypto: ^3.0.8
+  dio: ^5.11.1
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.5.0
+  flutter_secure_storage: ^11.2.0
+  go_router: ^18.1.4
+  mobile_scanner: ^7.5.0
+  pretty_qr_code: ^3.6.0
+  shared_preferences: ^2.5.6
+  sqflite: 2.4.6
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  sqflite_common_ffi: 2.4.6
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/learn/catalog.json
+    - assets/learn/projects/
+    - assets/learn/sketches/

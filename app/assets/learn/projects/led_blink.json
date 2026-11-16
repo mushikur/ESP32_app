@@ -1,0 +1,272 @@
+{
+  "id": "led_blink",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [760,306],
+    "nodes": {
+      "ESP": {"rect":[35,38,176,210],"left":[],"right":["GPIO23","GND"]},
+      "R1": {"rect":[303,75,124,66],"left":["1"],"right":["2"]},
+      "D1": {"rect":[504,75,124,66],"left":["A"],"right":["K"]}
+    },
+    "bends": {
+      "D1.K>ESP.GND": [[694,108],[694,178]]
+    }
+  },
+  "title": {
+    "en": "Blink an LED",
+    "bn": "LED জ্বালানো-নেভানো"
+  },
+  "intro": {
+    "en": "Make a red LED pulse like a small status light.",
+    "bn": "ছোট স্ট্যাটাস লাইটের মতো একটি লাল LED বারবার জ্বালান ও নেভান।"
+  },
+  "overview": {
+    "en": "The sketch switches one ESP32 output on for half a second and off for half a second. This is the same idea behind a heartbeat light on a device.",
+    "bn": "স্কেচটি ESP32-এর একটি আউটপুট আধা সেকেন্ড চালু ও আধা সেকেন্ড বন্ধ রাখে। ডিভাইস চলছে বোঝানোর বাতিতেও এই ধারণা ব্যবহৃত হয়।"
+  },
+  "difficulty": "beginner",
+  "minutes": 20,
+  "categories": [
+    "beginner",
+    "lighting"
+  ],
+  "art": "blink",
+  "objectives": [
+    {
+      "en": "Set a GPIO pin as an output",
+      "bn": "GPIO পিনকে আউটপুট করা"
+    },
+    {
+      "en": "Use a resistor and identify LED polarity",
+      "bn": "রেজিস্টর ব্যবহার ও LED-এর দিক চেনা"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "D1": "red_led",
+    "R1": "resistor330"
+  },
+  "gpio": {
+    "ledPin": "GPIO23"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO23"
+      ],
+      "to": [
+        "R1",
+        "1"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R1",
+        "2"
+      ],
+      "to": [
+        "D1",
+        "A"
+      ],
+      "color": "cyan",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D1",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Use one 330 Ω resistor in series with each LED. Keep the two LED legs in different connected rows.",
+      "bn": "প্রতিটি LED-এর সঙ্গে সিরিজে একটি ৩৩০ Ω রেজিস্টর লাগান। LED-এর দুই পা ভিন্ন সংযুক্ত সারিতে বসান।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h provides the types and functions used by this sketch, including the GPIO and timing functions supplied by the ESP32 board package.",
+        "bn": "Arduino.h স্কেচের জন্য দরকারি ডেটা টাইপ ও ফাংশন দেয়। এর মধ্যে ESP32 বোর্ড প্যাকেজের GPIO ও সময় নিয়ন্ত্রণের ফাংশন রয়েছে।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        3
+      ],
+      "anchor": "constexpr uint8_t ledPin = 23;",
+      "title": {
+        "en": "Name the LED pin",
+        "bn": "LED পিনের নাম দিন"
+      },
+      "text": {
+        "en": "ledPin names GPIO23. constexpr keeps the value fixed, and uint8_t is a small unsigned integer type.",
+        "bn": "ledPin দিয়ে GPIO23 বোঝানো হয়। constexpr মানটি স্থির রাখে। uint8_t হলো ছোট ধনাত্মক পূর্ণসংখ্যা ও শূন্য রাখার টাইপ।"
+      }
+    },
+    {
+      "lines": [
+        5,
+        8
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Prepare the output",
+        "bn": "আউটপুট প্রস্তুত করুন"
+      },
+      "text": {
+        "en": "setup() runs once after boot. pinMode makes GPIO23 an output, and writing LOW starts with the LED off.",
+        "bn": "বোর্ড চালু হলে setup() একবার চলে। pinMode দিয়ে GPIO23 আউটপুট হয়। LOW লিখে LED বন্ধ অবস্থায় শুরু হয়।"
+      }
+    },
+    {
+      "lines": [
+        10,
+        10
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Repeat the pattern",
+        "bn": "ধারাটি পুনরাবৃত্তি করুন"
+      },
+      "text": {
+        "en": "Arduino calls loop() again after it reaches the closing brace, so the pattern repeats.",
+        "bn": "শেষ বন্ধনীতে পৌঁছানোর পর Arduino আবার loop() চালায়। তাই ধারাটি বারবার চলে।"
+      }
+    },
+    {
+      "lines": [
+        11,
+        12
+      ],
+      "anchor": "digitalWrite(ledPin, HIGH);",
+      "title": {
+        "en": "Light the LED",
+        "bn": "LED জ্বালান"
+      },
+      "text": {
+        "en": "digitalWrite sends HIGH to GPIO23 and current flows through the resistor and LED. delay(500) waits for half a second.",
+        "bn": "digitalWrite GPIO23-কে HIGH করে। রেজিস্টর ও LED দিয়ে কারেন্ট যায়। delay(500) আধা সেকেন্ড অপেক্ষা করে।"
+      }
+    },
+    {
+      "lines": [
+        13,
+        15
+      ],
+      "anchor": "digitalWrite(ledPin, LOW);",
+      "title": {
+        "en": "Turn it off",
+        "bn": "LED বন্ধ করুন"
+      },
+      "text": {
+        "en": "LOW turns the LED off. The second 500 ms wait keeps it dark for half a second before the next blink.",
+        "bn": "LOW হলে LED নেভে। দ্বিতীয় ৫০০ মিলিসেকেন্ডের বিরতিতে পরের ঝলকের আগে LED আধা সেকেন্ড বন্ধ থাকে।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "blink_cycle",
+      "title": {
+        "en": "Check the blink timing",
+        "bn": "LED-এর সময় মিলিয়ে দেখুন"
+      },
+      "action": {
+        "en": "After upload, watch the external red LED for about five seconds.",
+        "bn": "আপলোডের পর বাইরের লাল LED প্রায় পাঁচ সেকেন্ড দেখুন।"
+      },
+      "expected": {
+        "en": "It stays on for about half a second and off for half a second, or about five full blinks in five seconds.",
+        "bn": "প্রায় আধা সেকেন্ড জ্বলে ও আধা সেকেন্ড নেভে। পাঁচ সেকেন্ডে প্রায় পাঁচবার পুরো চক্র হয়।"
+      }
+    },
+    {
+      "id": "restart_pattern",
+      "title": {
+        "en": "Check the pattern after reset",
+        "bn": "রিসেটের পর ধারা দেখুন"
+      },
+      "action": {
+        "en": "Press and release EN on the ESP32, then give the board a moment to restart.",
+        "bn": "ESP32-এর EN বোতাম চেপে ছেড়ে দিন। বোর্ডকে আবার চালু হতে একটু সময় দিন।"
+      },
+      "expected": {
+        "en": "The external LED resumes the same blinking pattern by itself.",
+        "bn": "বাইরের LED নিজে থেকেই একইভাবে জ্বলা-নেভা শুরু করে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The LED never lights",
+        "bn": "LED জ্বলছে না"
+      },
+      "cause": {
+        "en": "The LED may be reversed or its ground may be disconnected.",
+        "bn": "LED উল্টো লাগানো থাকতে পারে বা গ্রাউন্ড সংযোগ বিচ্ছিন্ন হতে পারে।"
+      },
+      "fix": {
+        "en": "Unplug USB. Check the flat edge (K), the resistor path to the anode (A), and the wire to J3 ground. Check that the legs are in separate rows.",
+        "bn": "USB খুলুন। সমতল ধার (K), অ্যানোড (A) পর্যন্ত রেজিস্টরের সংযোগ ও J3 গ্রাউন্ডের তার দেখুন। দুই পা আলাদা সারিতে আছে কি না মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "With power disconnected, find the flat edge or cathode marking. Check whether that leg connects to GND and the other leg connects to the resistor.",
+        "bn": "পাওয়ার বন্ধ রেখে সমতল ধার বা ক্যাথোডের চিহ্ন খুঁজুন। সেই পা GND-তে আর অন্য পা রেজিস্টরে আছে কি না দেখুন।"
+      },
+      "wireId": "R1.2>D1.A"
+    },
+    {
+      "symptom": {
+        "en": "The wrong light blinks",
+        "bn": "ভুল বাতি ঝিলমিল করছে"
+      },
+      "cause": {
+        "en": "The power light on the board is separate from this circuit.",
+        "bn": "বোর্ডের পাওয়ার লাইট এই সার্কিটের বাইরে।"
+      },
+      "fix": {
+        "en": "Check the external LED and match its resistor wire to IO23, J3 pin 2.",
+        "bn": "বাইরের LED দেখুন এবং রেজিস্টরের তার IO23, J3-এর ২ নম্বর পিনে লাগানো আছে কি না মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "Locate the separate LED on the breadboard. Compare its behavior with the board's power light.",
+        "bn": "ব্রেডবোর্ডের আলাদা LED খুঁজে নিন। এর আচরণ বোর্ডের পাওয়ার লাইটের সঙ্গে মিলিয়ে দেখুন।"
+      },
+      "wireId": "ESP.GPIO23>R1.1"
+    }
+  ]
+}

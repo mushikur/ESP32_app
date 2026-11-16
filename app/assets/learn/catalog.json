@@ -1,0 +1,440 @@
+{
+  "version": 1,
+  "board": {
+    "id": "devkitc_v4_32e",
+    "name": "Espressif ESP32-DevKitC V4 · ESP32-WROOM-32E",
+    "fqbn": "esp32:esp32:esp32",
+    "coreVersion": "3.3.12",
+    "ideBoard": "ESP32 Dev Module",
+    "packageIndex": "https://espressif.github.io/arduino-esp32/package_esp32_index.json",
+    "headers": {
+      "J2": [
+        {"mark":"3V3","role":"power3v3","terminal":"3V3"},
+        {"mark":"EN","role":"reset"},
+        {"mark":"VP","role":"analogInput"},
+        {"mark":"VN","role":"analogInput"},
+        {"mark":"IO34","role":"analogInput","terminal":"GPIO34"},
+        {"mark":"IO35","role":"analogInput"},
+        {"mark":"IO32","role":"adc1"},
+        {"mark":"IO33","role":"adc1"},
+        {"mark":"IO25","role":"adc2"},
+        {"mark":"IO26","role":"adc2"},
+        {"mark":"IO27","role":"adc2"},
+        {"mark":"IO14","role":"adc2"},
+        {"mark":"IO12","role":"strap"},
+        {"mark":"GND","role":"ground"},
+        {"mark":"IO13","role":"adc2"},
+        {"mark":"D2","role":"flash"},
+        {"mark":"D3","role":"flash"},
+        {"mark":"CMD","role":"flash"},
+        {"mark":"5V","role":"power5v"}
+      ],
+      "J3": [
+        {"mark":"GND","role":"ground"},
+        {"mark":"IO23","role":"gpio","terminal":"GPIO23"},
+        {"mark":"IO22","role":"gpio","terminal":"GPIO22"},
+        {"mark":"TX","role":"serial"},
+        {"mark":"RX","role":"serial"},
+        {"mark":"IO21","role":"gpio","terminal":"GPIO21"},
+        {"mark":"GND","role":"ground","terminal":"GND"},
+        {"mark":"IO19","role":"gpio"},
+        {"mark":"IO18","role":"gpio","terminal":"GPIO18"},
+        {"mark":"IO5","role":"strap"},
+        {"mark":"IO17","role":"gpio"},
+        {"mark":"IO16","role":"gpio"},
+        {"mark":"IO4","role":"adc2"},
+        {"mark":"IO0","role":"boot"},
+        {"mark":"IO2","role":"strap"},
+        {"mark":"IO15","role":"strap"},
+        {"mark":"D1","role":"flash"},
+        {"mark":"D0","role":"flash"},
+        {"mark":"CLK","role":"flash"}
+      ]
+    },
+    "orientation": {
+      "en": "Face the side with the metal ESP32 module, with the USB port pointing down. J2 is on the left and J3 on the right. Count each header from its top. Check the printed pin label before wiring.",
+      "bn": "ধাতব ESP32 মডিউলের দিকটি সামনে রাখুন এবং USB পোর্ট নিচে রাখুন। বাঁ দিকে J2, ডান দিকে J3। প্রতিটি হেডারের ওপর থেকে পিন গুনুন। তার লাগানোর আগে বোর্ডের ছাপা লেবেল মিলিয়ে নিন।"
+    }
+  },
+  "parts": {
+    "board": {
+      "title": {
+        "en": "ESP32-DevKitC V4",
+        "bn": "ESP32-DevKitC V4"
+      },
+      "about": {
+        "en": "Runs the sketch. Use the ESP32-WROOM-32E version.",
+        "bn": "প্রোগ্রাম চালায়। ESP32-WROOM-32E সংস্করণ ব্যবহার করুন।"
+      },
+      "pins": [
+        "GPIO23",
+        "GPIO22",
+        "GPIO21",
+        "GND",
+        "GPIO18",
+        "GPIO34",
+        "3V3"
+      ]
+    },
+    "breadboard": {
+      "title": {
+        "en": "Solderless breadboard",
+        "bn": "সোল্ডারবিহীন ব্রেডবোর্ড"
+      },
+      "about": {
+        "en": "Holds parts and joins legs placed in the same connected row.",
+        "bn": "যন্ত্রাংশ ধরে রাখে। একই সংযুক্ত সারির ছিদ্রগুলো বৈদ্যুতিকভাবে যুক্ত।"
+      },
+      "pins": []
+    },
+    "usb": {
+      "title": {
+        "en": "Micro-USB data cable",
+        "bn": "Micro-USB ডেটা কেবল"
+      },
+      "about": {
+        "en": "Powers the board and transfers the sketch from a computer.",
+        "bn": "বোর্ডে বিদ্যুৎ দেয় এবং কম্পিউটার থেকে স্কেচ পাঠায়।"
+      },
+      "pins": []
+    },
+    "jumpers": {
+      "title": {
+        "en": "Set of jumper wires",
+        "bn": "জাম্পার তারের সেট"
+      },
+      "about": {
+        "en": "Use suitable jumpers to connect board headers to breadboard rows.",
+        "bn": "বোর্ডের পিন থেকে ব্রেডবোর্ডের সারিতে সংযোগ দিতে উপযুক্ত জাম্পার ব্যবহার করুন।"
+      },
+      "pins": []
+    },
+    "red_led": {
+      "title": {
+        "en": "Red LED",
+        "bn": "লাল LED"
+      },
+      "about": {
+        "en": "Lights up when current flows from its anode (A) to cathode (K). The longer untrimmed leg is usually A; the flat edge marks K.",
+        "bn": "অ্যানোড (A) থেকে ক্যাথোডে (K) কারেন্ট গেলে জ্বলে। না-কাটা লম্বা পা সাধারণত A। সমতল ধারটি K চিহ্নিত করে।"
+      },
+      "pins": [
+        "A",
+        "K"
+      ]
+    },
+    "yellow_led": {
+      "title": {
+        "en": "Yellow LED",
+        "bn": "হলুদ LED"
+      },
+      "about": {
+        "en": "The longer untrimmed leg is usually A; the flat edge marks K.",
+        "bn": "না-কাটা লম্বা পা সাধারণত A। সমতল ধারটি K চিহ্নিত করে।"
+      },
+      "pins": [
+        "A",
+        "K"
+      ]
+    },
+    "green_led": {
+      "title": {
+        "en": "Green LED",
+        "bn": "সবুজ LED"
+      },
+      "about": {
+        "en": "Use a low forward-voltage green LED suitable for a 3.3 V circuit.",
+        "bn": "৩.৩ V সার্কিটে জ্বলে এমন কম ফরোয়ার্ড ভোল্টেজের সবুজ LED ব্যবহার করুন।"
+      },
+      "pins": [
+        "A",
+        "K"
+      ]
+    },
+    "resistor330": {
+      "title": {
+        "en": "330 Ω resistor",
+        "bn": "৩৩০ Ω রেজিস্টর"
+      },
+      "about": {
+        "en": "Limits LED current. Either end can face the GPIO pin.",
+        "bn": "LED-এর কারেন্ট সীমিত রাখে। যেকোনো প্রান্ত GPIO পিনের দিকে থাকতে পারে।"
+      },
+      "pins": [
+        "1",
+        "2"
+      ]
+    },
+    "resistor10k": {
+      "title": {
+        "en": "10 kΩ resistor",
+        "bn": "১০ kΩ রেজিস্টর"
+      },
+      "about": {
+        "en": "Sets the voltage divider with the light sensor. Either direction works.",
+        "bn": "আলোর সেন্সরের সঙ্গে ভোল্টেজ ভাগ করে। যেকোনো দিকে লাগানো যায়।"
+      },
+      "pins": [
+        "1",
+        "2"
+      ]
+    },
+    "button": {
+      "title": {
+        "en": "Normally open push button",
+        "bn": "চাপ দিলে সংযোগ হয় এমন বোতাম"
+      },
+      "about": {
+        "en": "Pressing joins terminals A and B. On a four-leg switch, identify two legs that connect only when pressed using a continuity tester.",
+        "bn": "চাপলে A ও B যুক্ত হয়। চার পায়ের বোতামে কন্টিনিউটি টেস্টার দিয়ে এমন দুই পা খুঁজুন যেগুলো কেবল চাপলে যুক্ত হয়।"
+      },
+      "pins": [
+        "A",
+        "B"
+      ]
+    },
+    "ldr": {
+      "title": {
+        "en": "Photoresistor (LDR)",
+        "bn": "আলো-নির্ভর রেজিস্টর (LDR)"
+      },
+      "about": {
+        "en": "Its resistance drops in brighter light. Either direction works.",
+        "bn": "আলো বাড়লে এর রোধ কমে। যেকোনো দিকে লাগানো যায়।"
+      },
+      "pins": [
+        "1",
+        "2"
+      ]
+    },
+    "servo": {
+      "title": {
+        "en": "FEETECH FS90 position servo",
+        "bn": "FEETECH FS90 পজিশন সার্ভো"
+      },
+      "about": {
+        "en": "Moves to a position set by short pulses. Verify signal, power and ground from the FS90 connector documentation.",
+        "bn": "ছোট পালস অনুযায়ী নির্দিষ্ট অবস্থানে যায়। FS90-এর কানেক্টরের নির্দেশিকা দেখে সিগন্যাল, পাওয়ার ও গ্রাউন্ড মিলিয়ে নিন।"
+      },
+      "pins": [
+        "Signal",
+        "V+",
+        "GND"
+      ]
+    },
+    "supply": {
+      "title": {
+        "en": "Regulated 5 V DC supply (≥1 A)",
+        "bn": "নিয়ন্ত্রিত ৫ V DC পাওয়ার সাপ্লাই (≥১ A)"
+      },
+      "about": {
+        "en": "Powers the servo separately. Use a ready-made low-voltage supply with clearly marked output terminals.",
+        "bn": "সার্ভোকে আলাদাভাবে বিদ্যুৎ দেয়। আউটপুট চিহ্নিত, তৈরি করা লো-ভোল্টেজ সাপ্লাই ব্যবহার করুন।"
+      },
+      "pins": [
+        "+5V",
+        "GND"
+      ]
+    }
+  },
+  "projects": [
+    "led_blink",
+    "button_led",
+    "traffic_light",
+    "ldr_night_light",
+    "servo_angle",
+    "dual_led_patterns",
+    "light_intensity_monitor"
+  ],
+  "setup": [
+    {
+      "stage": "install",
+      "title": {
+        "en": "Install Arduino IDE 2",
+        "bn": "Arduino IDE 2 ইনস্টল করুন"
+      },
+      "text": {
+        "en": "On a Windows, macOS, or Linux computer, download Arduino IDE 2 from Arduino's official software page and run the installer for your operating system.",
+        "bn": "Windows, macOS বা Linux কম্পিউটারে Arduino-এর অফিসিয়াল সফটওয়্যার পেজ থেকে Arduino IDE 2 ডাউনলোড করুন এবং নিজের সিস্টেমের ইনস্টলার চালান।"
+      }
+    },
+    {
+      "stage": "preferences",
+      "title": {
+        "en": "Add the ESP32 package URL",
+        "bn": "ESP32 প্যাকেজের URL যোগ করুন"
+      },
+      "text": {
+        "en": "Open Preferences from the File menu on Windows or Linux, or the Arduino IDE menu on macOS. Add the URL shown below to Additional Boards Manager URLs. Keep any entries already there and save your changes.",
+        "bn": "Windows বা Linux-এ File মেনু থেকে, বা macOS-এ Arduino IDE মেনু থেকে Preferences খুলুন। নিচের URL-টি Additional Boards Manager URLs-এ যোগ করুন। আগের এন্ট্রি রেখে সেভ করুন।"
+      }
+    },
+    {
+      "stage": "boards",
+      "title": {
+        "en": "Install the Espressif board package",
+        "bn": "Espressif বোর্ড প্যাকেজ ইনস্টল করুন"
+      },
+      "text": {
+        "en": "Open Boards Manager from the sidebar and search for esp32. Choose the Espressif Systems package and install the version shown below.",
+        "bn": "সাইডবার থেকে Boards Manager খুলে esp32 লিখে খুঁজুন। Espressif Systems প্যাকেজ বেছে নিয়ে নিচে দেখানো সংস্করণ ইনস্টল করুন।"
+      }
+    },
+    {
+      "stage": "connect",
+      "title": {
+        "en": "Connect the ESP32 to your computer",
+        "bn": "কম্পিউটারে ESP32 সংযুক্ত করুন"
+      },
+      "text": {
+        "en": "Use a Micro-USB data cable. Follow the lesson's wiring and power instructions before connecting the board. A data cable lets the IDE see the board's USB serial port.",
+        "bn": "Micro-USB ডেটা কেবল ব্যবহার করুন। বোর্ড সংযুক্ত করার আগে পাঠের সংযোগ ও পাওয়ার নির্দেশনা মেনে চলুন। ডেটা কেবল দিয়ে IDE বোর্ডের USB সিরিয়াল পোর্ট দেখতে পায়।"
+      }
+    },
+    {
+      "stage": "boardPort",
+      "title": {
+        "en": "Select the board and port",
+        "bn": "বোর্ড ও পোর্ট বাছুন"
+      },
+      "text": {
+        "en": "Open the board selector and choose Select other board and port if the port is shown as Unknown. Choose the board profile below and the port that appeared after you connected the board.",
+        "bn": "বোর্ড সিলেক্টর খুলুন। পোর্ট Unknown দেখালে Select other board and port বাছুন। নিচে দেওয়া বোর্ড প্রোফাইল এবং বোর্ড সংযোগের পর যে পোর্টটি এসেছে সেটি বাছুন।"
+      }
+    },
+    {
+      "stage": "libraries",
+      "title": {
+        "en": "Check library requirements",
+        "bn": "লাইব্রেরির চাহিদা মিলিয়ে নিন"
+      },
+      "text": {
+        "en": "This lesson uses Arduino.h from the Espressif board package. The board package installation already provides it.",
+        "bn": "এই পাঠে Espressif বোর্ড প্যাকেজের Arduino.h ব্যবহৃত হয়। বোর্ড প্যাকেজ ইনস্টল করলেই এটি পাওয়া যায়।"
+      }
+    },
+    {
+      "stage": "sketch",
+      "title": {
+        "en": "Open the sketch on your computer",
+        "bn": "কম্পিউটারে স্কেচটি খুলুন"
+      },
+      "text": {
+        "en": "Save the .ino file and transfer it to your computer. Use a folder that matches the file name without .ino. Open the file through File → Open. You can also copy the full source into a new sketch and save it from the IDE.",
+        "bn": ".ino ফাইলটি সেভ করে কম্পিউটারে নিন। .ino বাদে ফাইলের নামে একটি ফোল্ডার ব্যবহার করুন। File → Open দিয়ে ফাইল খুলুন। চাইলে পুরো কোড কপি করে নতুন স্কেচে বসিয়ে IDE থেকে সেভ করুন।"
+      }
+    },
+    {
+      "stage": "upload",
+      "title": {
+        "en": "Verify, then upload",
+        "bn": "Verify করে আপলোড করুন"
+      },
+      "text": {
+        "en": "Click Verify and read the Output panel. If Verify succeeds, click Upload and wait for the IDE to finish. Check the result on the computer before marking upload complete here.",
+        "bn": "Verify চাপুন ও Output প্যানেল দেখুন। Verify সফল হলে Upload চাপুন এবং IDE-এর কাজ শেষ হওয়া পর্যন্ত অপেক্ষা করুন। এখানে আপলোড সম্পূর্ণ চিহ্নিত করার আগে কম্পিউটারের ফল দেখুন।"
+      }
+    },
+    {
+      "stage": "serial",
+      "title": {
+        "en": "Read the output and test",
+        "bn": "আউটপুট পড়ুন ও পরীক্ষা করুন"
+      },
+      "text": {
+        "en": "After upload, compare the circuit with the lesson's expected behavior. For sketches that use Serial Monitor, match the baud rate to the sketch.",
+        "bn": "আপলোডের পর সার্কিটের আচরণ পাঠের প্রত্যাশিত ফলের সঙ্গে মেলান। যেসব স্কেচ Serial Monitor ব্যবহার করে সেগুলোর baud rate স্কেচের সঙ্গে মেলান।"
+      }
+    }
+  ],
+  "uploadIssues": [
+    {
+      "symptom": {
+        "en": "The port does not appear",
+        "bn": "পোর্ট দেখা যাচ্ছে না"
+      },
+      "cause": {
+        "en": "A charge-only cable or missing USB-to-serial driver can keep the port from appearing.",
+        "bn": "শুধু চার্জের কেবল বা USB-to-serial ড্রাইভার না থাকলে পোর্ট দেখা নাও যেতে পারে।"
+      },
+      "fix": {
+        "en": "Try a known data cable and a different USB port. Check the computer's device list. Install the driver from the maker of your board's USB-to-serial chip if the computer reports a missing driver.",
+        "bn": "চলে এমন ডেটা কেবল ও অন্য USB পোর্ট দিয়ে চেষ্টা করুন। কম্পিউটারের ডিভাইস তালিকা দেখুন। ড্রাইভার নেই দেখালে বোর্ডের USB-to-serial চিপ নির্মাতার ড্রাইভার ইনস্টল করুন।"
+      }
+    },
+    {
+      "symptom": {
+        "en": "The board profile is missing",
+        "bn": "বোর্ড প্রোফাইল নেই"
+      },
+      "cause": {
+        "en": "The Espressif board package may not be installed or the IDE may be using a different board profile.",
+        "bn": "Espressif বোর্ড প্যাকেজ ইনস্টল নাও থাকতে পারে বা IDE অন্য বোর্ড প্রোফাইল ব্যবহার করছে।"
+      },
+      "fix": {
+        "en": "Check Boards Manager for the esp32 package by Espressif Systems, then choose ESP32 Dev Module for the board used in these lessons.",
+        "bn": "Boards Manager-এ Espressif Systems-এর esp32 প্যাকেজ দেখুন। এরপর এই পাঠের বোর্ডের জন্য ESP32 Dev Module বাছুন।"
+      }
+    },
+    {
+      "symptom": {
+        "en": "Verify reports a compile error",
+        "bn": "Verify-তে কম্পাইল ত্রুটি"
+      },
+      "cause": {
+        "en": "The sketch may be incomplete, or the board package or selected profile may be wrong.",
+        "bn": "স্কেচ অসম্পূর্ণ হতে পারে অথবা বোর্ড প্যাকেজ বা বাছাই করা প্রোফাইল ভুল হতে পারে।"
+      },
+      "fix": {
+        "en": "Read the first error in Output. Reopen the complete .ino file, check the Espressif core version and board profile, and run Verify again. If Arduino.h is missing, repair the board package installation.",
+        "bn": "Output-এর প্রথম ত্রুটিটি পড়ুন। পুরো .ino ফাইল আবার খুলুন, Espressif কোর সংস্করণ ও বোর্ড প্রোফাইল মিলিয়ে Verify আবার চালান। Arduino.h না পেলে বোর্ড প্যাকেজ আবার ঠিক করে ইনস্টল করুন।"
+      }
+    },
+    {
+      "symptom": {
+        "en": "The port is busy",
+        "bn": "পোর্ট অন্য কোথাও ব্যবহৃত হচ্ছে"
+      },
+      "cause": {
+        "en": "Another program may have the serial port open.",
+        "bn": "অন্য কোনো প্রোগ্রাম সিরিয়াল পোর্ট খুলে রাখতে পারে।"
+      },
+      "fix": {
+        "en": "Close extra IDE windows, Serial Monitor, and other serial tools. Select the ESP32 port again before retrying Upload.",
+        "bn": "অতিরিক্ত IDE উইন্ডো, Serial Monitor এবং অন্য সিরিয়াল টুল বন্ধ করুন। আবার Upload করার আগে ESP32-এর পোর্ট বাছুন।"
+      }
+    },
+    {
+      "symptom": {
+        "en": "Upload stays at Connecting…",
+        "bn": "আপলোড Connecting…-এ আটকে আছে"
+      },
+      "cause": {
+        "en": "The board may not have entered the serial bootloader.",
+        "bn": "বোর্ড সিরিয়াল বুটলোডারে নাও ঢুকতে পারে।"
+      },
+      "fix": {
+        "en": "Check the selected port first. On this DevKitC, if automatic reset fails, hold BOOT, tap and release EN, and release BOOT when writing begins. After upload, tap EN if the sketch does not start.",
+        "bn": "আগে বাছাই করা পোর্ট মিলিয়ে নিন। এই DevKitC-তে স্বয়ংক্রিয় রিসেট ব্যর্থ হলে BOOT ধরে EN একবার চেপে ছেড়ে দিন। লেখা শুরু হলে BOOT ছাড়ুন। আপলোড শেষে স্কেচ শুরু না হলে EN চাপুন।"
+      }
+    },
+    {
+      "symptom": {
+        "en": "Serial Monitor shows unreadable text",
+        "bn": "Serial Monitor-এ লেখা পড়া যাচ্ছে না"
+      },
+      "cause": {
+        "en": "The monitor's baud rate may differ from Serial.begin in the sketch.",
+        "bn": "মনিটরের baud rate স্কেচের Serial.begin-এর মানের সঙ্গে নাও মিলতে পারে।"
+      },
+      "fix": {
+        "en": "Select the baud rate shown in the walkthrough, then reset the board with EN if you need to see the startup message again.",
+        "bn": "নির্দেশিকায় দেখানো baud rate বাছুন। শুরুর বার্তা আবার দেখতে হলে EN দিয়ে বোর্ড রিসেট করুন।"
+      }
+    }
+  ],
+  "safety": {
+    "en": "Unplug USB and switch off any external supply before changing wires. Use these low-voltage circuits with the named board. Leave mains wiring to qualified professionals.",
+    "bn": "তার বদলানোর আগে USB খুলুন ও বাহ্যিক সাপ্লাই বন্ধ করুন। উল্লেখিত বোর্ড দিয়ে এই লো-ভোল্টেজ সার্কিটগুলো বানান। মেইনস লাইনের কাজ যোগ্য পেশাজীবীর জন্য রাখুন।"
+  }
+}

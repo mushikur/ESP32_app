@@ -1,0 +1,428 @@
+{
+  "id": "dual_led_patterns",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [
+      760,
+      365
+    ],
+    "nodes": {
+      "ESP": {
+        "rect": [
+          35,
+          32,
+          176,
+          300
+        ],
+        "left": [],
+        "right": [
+          "GPIO23",
+          "GPIO22",
+          "GND"
+        ]
+      },
+      "R1": {
+        "rect": [
+          303,
+          74,
+          124,
+          66
+        ],
+        "left": [
+          "1"
+        ],
+        "right": [
+          "2"
+        ]
+      },
+      "D1": {
+        "rect": [
+          504,
+          74,
+          124,
+          66
+        ],
+        "left": [
+          "A"
+        ],
+        "right": [
+          "K"
+        ]
+      },
+      "R2": {
+        "rect": [
+          303,
+          149,
+          124,
+          66
+        ],
+        "left": [
+          "1"
+        ],
+        "right": [
+          "2"
+        ]
+      },
+      "D2": {
+        "rect": [
+          504,
+          149,
+          124,
+          66
+        ],
+        "left": [
+          "A"
+        ],
+        "right": [
+          "K"
+        ]
+      }
+    },
+    "bends": {
+      "D1.K>ESP.GND": [
+        [
+          700,
+          107
+        ],
+        [
+          700,
+          257
+        ]
+      ],
+      "D2.K>ESP.GND": [
+        [
+          665,
+          182
+        ],
+        [
+          665,
+          257
+        ]
+      ]
+    }
+  },
+  "title": {
+    "en": "Two LEDs with Different Patterns",
+    "bn": "দুটি LED, দুই রকম ধারা"
+  },
+  "intro": {
+    "en": "Make two LEDs blink at different speeds using a shared clock.",
+    "bn": "একই ঘড়ি থেকে দুটি LED আলাদা গতিতে জ্বালান ও নেভান।"
+  },
+  "overview": {
+    "en": "Each LED has its own last-switch time. The ESP32 compares those times to millis() on every pass through loop(), so each LED can change on its own schedule.",
+    "bn": "প্রতিটি LED শেষ কখন বদলেছে তার আলাদা সময় থাকে। ESP32 প্রতি loop()-এ millis()-এর সঙ্গে সেই সময়গুলো মেলায়, তাই দুটি LED নিজের সময়ে বদলাতে পারে।"
+  },
+  "difficulty": "easy",
+  "minutes": 30,
+  "categories": [
+    "beginner",
+    "lighting"
+  ],
+  "art": "dual",
+  "objectives": [
+    {
+      "en": "Use millis() to schedule independent actions",
+      "bn": "আলাদা কাজের সময় ঠিক করতে millis() ব্যবহার"
+    },
+    {
+      "en": "Wire two current-limited LED outputs",
+      "bn": "কারেন্ট-সীমিত দুটি LED আউটপুট সংযোগ"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "D1": "red_led",
+    "R1": "resistor330",
+    "D2": "green_led",
+    "R2": "resistor330"
+  },
+  "gpio": {
+    "redPin": "GPIO23",
+    "greenPin": "GPIO22"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO23"
+      ],
+      "to": [
+        "R1",
+        "1"
+      ],
+      "color": "red",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R1",
+        "2"
+      ],
+      "to": [
+        "D1",
+        "A"
+      ],
+      "color": "red",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D1",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    },
+    {
+      "from": [
+        "ESP",
+        "GPIO22"
+      ],
+      "to": [
+        "R2",
+        "1"
+      ],
+      "color": "green",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R2",
+        "2"
+      ],
+      "to": [
+        "D2",
+        "A"
+      ],
+      "color": "green",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D2",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Use one 330 Ω resistor in series with each LED. Keep the two LED legs in different connected rows.",
+      "bn": "প্রতিটি LED-এর সঙ্গে সিরিজে একটি ৩৩০ Ω রেজিস্টর লাগান। LED-এর দুই পা ভিন্ন সংযুক্ত সারিতে বসান।"
+    },
+    {
+      "en": "Use the low forward-voltage green LED specified in the parts list. Both LED cathodes join the same ground row.",
+      "bn": "উপকরণের তালিকার কম ফরোয়ার্ড ভোল্টেজের সবুজ LED ব্যবহার করুন। দুই LED-এর ক্যাথোড একই গ্রাউন্ড সারিতে যাবে।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h supplies the ESP32 board package's pin, timing, and serial functions.",
+        "bn": "Arduino.h থেকে ESP32 বোর্ড প্যাকেজের পিন, সময় ও সিরিয়াল ফাংশন পাওয়া যায়।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        6
+      ],
+      "anchor": "constexpr uint8_t redPin = 23;",
+      "title": {
+        "en": "Choose pins and intervals",
+        "bn": "পিন ও বিরতি বাছুন"
+      },
+      "text": {
+        "en": "The red circuit uses GPIO23 and flips every 500 ms. The green circuit uses GPIO22 and flips every 1,000 ms.",
+        "bn": "লাল সার্কিট GPIO23-এ প্রতি ৫০০ ms-এ বদলায়। সবুজ সার্কিট GPIO22-এ প্রতি ১,০০০ ms-এ বদলায়।"
+      }
+    },
+    {
+      "lines": [
+        7,
+        10
+      ],
+      "anchor": "unsigned long lastRed = 0;",
+      "title": {
+        "en": "Remember both states",
+        "bn": "দুটির অবস্থা মনে রাখুন"
+      },
+      "text": {
+        "en": "The last-switch times and the on/off flags are separate so updating one LED never changes the other LED's schedule.",
+        "bn": "শেষ বদলের সময় ও চালু-বন্ধ অবস্থা আলাদা রাখা হয়েছে। একটি LED বদলালে অন্যটির সময়সূচি বদলায় না।"
+      }
+    },
+    {
+      "lines": [
+        12,
+        18
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Start both timers",
+        "bn": "দুটি টাইমার শুরু করুন"
+      },
+      "text": {
+        "en": "setup() makes both pins outputs, turns both LEDs off, and records the current millisecond count for each.",
+        "bn": "setup() দুই পিনকে আউটপুট করে, LED দুটি বন্ধ করে এবং তখনকার মিলিসেকেন্ডের মান দুটির জন্য রাখে।"
+      }
+    },
+    {
+      "lines": [
+        20,
+        21
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Read the clock",
+        "bn": "ঘড়ি পড়ুন"
+      },
+      "text": {
+        "en": "Every pass through loop() takes one snapshot of the clock. Both checks use that same value.",
+        "bn": "প্রতি loop()-এ ঘড়ির মান একবার নেওয়া হয়। দুটি পরীক্ষাই একই মান ব্যবহার করে।"
+      }
+    },
+    {
+      "lines": [
+        22,
+        26
+      ],
+      "anchor": "if (now - lastRed >= redInterval) {",
+      "title": {
+        "en": "Check the faster red LED",
+        "bn": "দ্রুত লাল LED পরীক্ষা করুন"
+      },
+      "text": {
+        "en": "Subtract the previous unsigned timestamp to measure elapsed time, including across the millis() counter wrap. When enough time has passed, save the new time, invert the flag, and update the red output.",
+        "bn": "আগের unsigned সময় বাদ দিয়ে কত সময় গেছে মাপা হয়, millis() ঘুরে গেলেও। যথেষ্ট সময় হলে নতুন সময় রাখুন, অবস্থা উল্টান ও লাল আউটপুট বদলান।"
+      }
+    },
+    {
+      "lines": [
+        27,
+        32
+      ],
+      "anchor": "if (now - lastGreen >= greenInterval) {",
+      "title": {
+        "en": "Check the green LED separately",
+        "bn": "সবুজ LED আলাদাভাবে দেখুন"
+      },
+      "text": {
+        "en": "The second if uses the green LED's own interval. Both checks run each time, so one LED never has to wait for the other's blink.",
+        "bn": "দ্বিতীয় if সবুজ LED-এর নিজের বিরতি ব্যবহার করে। প্রতিবার দুটি পরীক্ষা হয়, তাই একটি LED-কে অন্যটির জন্য অপেক্ষা করতে হয় না।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "compare_rates",
+      "title": {
+        "en": "Compare the two blink rates",
+        "bn": "দুটি LED-এর গতি তুলনা করুন"
+      },
+      "action": {
+        "en": "After upload, watch both LEDs for about ten seconds and count full on-and-off cycles.",
+        "bn": "আপলোডের পর প্রায় দশ সেকেন্ড দুই LED দেখুন ও পূর্ণ জ্বলা-নেভা গুনুন।"
+      },
+      "expected": {
+        "en": "The red LED completes about ten cycles. The green LED completes about five.",
+        "bn": "লাল LED প্রায় দশটি চক্র শেষ করে। সবুজ LED প্রায় পাঁচটি শেষ করে।"
+      }
+    },
+    {
+      "id": "independent_patterns",
+      "title": {
+        "en": "Watch both LEDs together",
+        "bn": "দুটি LED একসঙ্গে দেখুন"
+      },
+      "action": {
+        "en": "Watch through a few cycles after both LEDs have started blinking.",
+        "bn": "দুটি LED জ্বলা-নেভা শুরু করার পর কয়েকটি চক্র দেখুন।"
+      },
+      "expected": {
+        "en": "Both LEDs keep blinking. There are moments when both are lit at the same time.",
+        "bn": "দুটি LED-ই জ্বলা-নেভা চালায়। মাঝে মাঝে দুটিই একসঙ্গে জ্বলে।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "One LED never lights",
+        "bn": "একটি LED কখনও জ্বলে না"
+      },
+      "cause": {
+        "en": "Its polarity, resistor, or ground path may be wrong.",
+        "bn": "এর দিক, রেজিস্টর বা গ্রাউন্ডের সংযোগ ভুল হতে পারে।"
+      },
+      "inspect": {
+        "en": "With power disconnected, find the flat cathode edge and trace it to the ground row.",
+        "bn": "পাওয়ার বিচ্ছিন্ন রেখে ক্যাথোডের সমতল দিক খুঁজে গ্রাউন্ড সারি পর্যন্ত অনুসরণ করুন।"
+      },
+      "fix": {
+        "en": "Put the cathode in the ground path and the anode on its own 330 Ω resistor path. Follow the matching board pin.",
+        "bn": "ক্যাথোড গ্রাউন্ডে ও অ্যানোড নিজের ৩৩০ Ω রেজিস্টরের পথে বসান। সংশ্লিষ্ট বোর্ড পিন মিলিয়ে নিন।"
+      },
+      "wireId": "D2.K>ESP.GND"
+    },
+    {
+      "symptom": {
+        "en": "The colors blink at swapped speeds",
+        "bn": "রঙের গতি উল্টো হয়েছে"
+      },
+      "cause": {
+        "en": "The two GPIO jumper wires may be swapped.",
+        "bn": "দুটি GPIO জাম্পার অদলবদল হয়ে থাকতে পারে।"
+      },
+      "inspect": {
+        "en": "Disconnect power, then trace the jumper for each resistor back to the board label.",
+        "bn": "পাওয়ার খুলে প্রতিটি রেজিস্টরের জাম্পার বোর্ডের লেবেল পর্যন্ত অনুসরণ করুন।"
+      },
+      "fix": {
+        "en": "Connect the red resistor path to IO23 and the green resistor path to IO22.",
+        "bn": "লালের রেজিস্টরের পথ IO23-এ ও সবুজের রেজিস্টরের পথ IO22-এ দিন।"
+      },
+      "wireId": "ESP.GPIO22>R2.1"
+    }
+  ]
+}

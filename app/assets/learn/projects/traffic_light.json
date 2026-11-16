@@ -1,0 +1,404 @@
+{
+  "id": "traffic_light",
+  "board": "devkitc_v4_32e",
+  "wiringLayout": {
+    "size": [760,430],
+    "nodes": {
+      "ESP": {"rect":[35,14,176,380],"left":[],"right":["GPIO23","GPIO22","GPIO21","GND"]},
+      "R1": {"rect":[303,57,124,66],"left":["1"],"right":["2"]},
+      "D1": {"rect":[504,57,124,66],"left":["A"],"right":["K"]},
+      "R2": {"rect":[303,133,124,66],"left":["1"],"right":["2"]},
+      "D2": {"rect":[504,133,124,66],"left":["A"],"right":["K"]},
+      "R3": {"rect":[303,209,124,66],"left":["1"],"right":["2"]},
+      "D3": {"rect":[504,209,124,66],"left":["A"],"right":["K"]}
+    },
+    "bends": {
+      "D1.K>ESP.GND": [[716,90],[716,318]],
+      "D2.K>ESP.GND": [[686,166],[686,318]],
+      "D3.K>ESP.GND": [[656,242],[656,318]]
+    }
+  },
+  "title": {
+    "en": "Traffic Light Model",
+    "bn": "ট্রাফিক লাইটের মডেল"
+  },
+  "intro": {
+    "en": "Build a tabletop red, green, and yellow sequence.",
+    "bn": "টেবিলের ওপর লাল, সবুজ ও হলুদ বাতির একটি ক্রম বানান।"
+  },
+  "overview": {
+    "en": "Three ESP32 outputs drive three LEDs. A helper turns the other lights off and then turns on the selected light. The model uses a repeating red, green, yellow pattern.",
+    "bn": "ESP32-এর তিনটি আউটপুট তিনটি LED চালায়। সহায়ক ফাংশন অন্য বাতিগুলো নিভিয়ে নির্বাচিত বাতি জ্বালায়। মডেলে লাল, সবুজ, হলুদ ক্রমটি পুনরাবৃত্তি হয়।"
+  },
+  "difficulty": "easy",
+  "minutes": 30,
+  "categories": [
+    "beginner",
+    "lighting"
+  ],
+  "art": "traffic",
+  "objectives": [
+    {
+      "en": "Control several outputs",
+      "bn": "একাধিক আউটপুট নিয়ন্ত্রণ"
+    },
+    {
+      "en": "Write a timed sequence using a helper function",
+      "bn": "সহায়ক ফাংশন দিয়ে সময়ভিত্তিক ক্রম লেখা"
+    }
+  ],
+  "parts": {
+    "ESP": "board",
+    "BB": "breadboard",
+    "USB": "usb",
+    "W": "jumpers",
+    "D1": "red_led",
+    "R1": "resistor330",
+    "D2": "yellow_led",
+    "R2": "resistor330",
+    "D3": "green_led",
+    "R3": "resistor330"
+  },
+  "gpio": {
+    "redPin": "GPIO23",
+    "yellowPin": "GPIO22",
+    "greenPin": "GPIO21"
+  },
+  "wires": [
+    {
+      "from": [
+        "ESP",
+        "GPIO23"
+      ],
+      "to": [
+        "R1",
+        "1"
+      ],
+      "color": "red",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R1",
+        "2"
+      ],
+      "to": [
+        "D1",
+        "A"
+      ],
+      "color": "red",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D1",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    },
+    {
+      "from": [
+        "ESP",
+        "GPIO22"
+      ],
+      "to": [
+        "R2",
+        "1"
+      ],
+      "color": "yellow",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R2",
+        "2"
+      ],
+      "to": [
+        "D2",
+        "A"
+      ],
+      "color": "yellow",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D2",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    },
+    {
+      "from": [
+        "ESP",
+        "GPIO21"
+      ],
+      "to": [
+        "R3",
+        "1"
+      ],
+      "color": "green",
+      "why": {
+        "en": "The ESP32 sets this output high to light the LED.",
+        "bn": "LED জ্বালাতে ESP32 এই আউটপুট হাই করে।"
+      }
+    },
+    {
+      "from": [
+        "R3",
+        "2"
+      ],
+      "to": [
+        "D3",
+        "A"
+      ],
+      "color": "green",
+      "why": {
+        "en": "The resistor and the LED anode share a breadboard row. The resistor limits current.",
+        "bn": "রেজিস্টর ও LED-এর অ্যানোড একই সংযুক্ত সারিতে বসান। রেজিস্টর কারেন্ট সীমিত রাখে।"
+      }
+    },
+    {
+      "from": [
+        "D3",
+        "K"
+      ],
+      "to": [
+        "ESP",
+        "GND"
+      ],
+      "color": "black",
+      "why": {
+        "en": "Ground completes the circuit. Use a common ground row when several parts need it.",
+        "bn": "গ্রাউন্ড সার্কিট সম্পূর্ণ করে। একাধিক যন্ত্রাংশের জন্য একটি সাধারণ গ্রাউন্ড সারি ব্যবহার করুন।"
+      }
+    }
+  ],
+  "safety": [
+    {
+      "en": "Use one 330 Ω resistor in series with each LED. Keep the two LED legs in different connected rows.",
+      "bn": "প্রতিটি LED-এর সঙ্গে সিরিজে একটি ৩৩০ Ω রেজিস্টর লাগান। LED-এর দুই পা ভিন্ন সংযুক্ত সারিতে বসান।"
+    }
+  ],
+  "codeNotes": [
+    {
+      "lines": [
+        1,
+        1
+      ],
+      "anchor": "#include <Arduino.h>",
+      "title": {
+        "en": "Arduino functions",
+        "bn": "Arduino ফাংশন"
+      },
+      "text": {
+        "en": "Arduino.h provides the types and functions used by this sketch, including the GPIO and timing functions supplied by the ESP32 board package.",
+        "bn": "Arduino.h স্কেচের জন্য দরকারি ডেটা টাইপ ও ফাংশন দেয়। এর মধ্যে ESP32 বোর্ড প্যাকেজের GPIO ও সময় নিয়ন্ত্রণের ফাংশন রয়েছে।"
+      }
+    },
+    {
+      "lines": [
+        3,
+        5
+      ],
+      "anchor": "constexpr uint8_t redPin = 23;",
+      "title": {
+        "en": "Assign one pin per light",
+        "bn": "প্রতি বাতিতে একটি পিন দিন"
+      },
+      "text": {
+        "en": "The constants match the red, yellow, and green LED wiring on GPIO23, GPIO22, and GPIO21 respectively.",
+        "bn": "লাল, হলুদ ও সবুজ LED-এর স্থির পিনগুলো যথাক্রমে GPIO23, GPIO22 ও GPIO21।"
+      }
+    },
+    {
+      "lines": [
+        7,
+        11
+      ],
+      "anchor": "void showLight(uint8_t activePin) {",
+      "title": {
+        "en": "Clear the previous light",
+        "bn": "আগের বাতি বন্ধ করুন"
+      },
+      "text": {
+        "en": "showLight accepts one pin number. It first sets all three outputs LOW so the previous light is off before a new light turns on.",
+        "bn": "showLight একটি পিন নম্বর নেয়। নতুন বাতি জ্বালানোর আগে এটি সব আউটপুট LOW করে আগের বাতি বন্ধ করে।"
+      }
+    },
+    {
+      "lines": [
+        12,
+        13
+      ],
+      "anchor": "digitalWrite(activePin, HIGH);",
+      "title": {
+        "en": "Light the selected LED",
+        "bn": "বেছে নেওয়া LED জ্বালান"
+      },
+      "text": {
+        "en": "The final digitalWrite sets only the pin passed to showLight HIGH.",
+        "bn": "শেষ digitalWrite শুধু showLight-এ দেওয়া পিনটিকে HIGH করে।"
+      }
+    },
+    {
+      "lines": [
+        15,
+        19
+      ],
+      "anchor": "void setup() {",
+      "title": {
+        "en": "Prepare the three outputs",
+        "bn": "তিনটি আউটপুট প্রস্তুত করুন"
+      },
+      "text": {
+        "en": "setup() uses pinMode to configure the three GPIO pins as outputs once after boot.",
+        "bn": "বোর্ড চালু হলে setup() একবার pinMode দিয়ে তিনটি GPIO পিনকে আউটপুট করে।"
+      }
+    },
+    {
+      "lines": [
+        21,
+        23
+      ],
+      "anchor": "void loop() {",
+      "title": {
+        "en": "Start with red",
+        "bn": "লাল দিয়ে শুরু করুন"
+      },
+      "text": {
+        "en": "Each pass through loop() starts by lighting red. 3,000 milliseconds is three seconds.",
+        "bn": "loop()-এর প্রতিবারের শুরুতে লাল বাতি জ্বলে। ৩,০০০ মিলিসেকেন্ড মানে তিন সেকেন্ড।"
+      }
+    },
+    {
+      "lines": [
+        24,
+        25
+      ],
+      "anchor": "showLight(greenPin);",
+      "title": {
+        "en": "Switch to green",
+        "bn": "সবুজে বদলান"
+      },
+      "text": {
+        "en": "The same function turns off red and lights green, which also stays on for three seconds.",
+        "bn": "একই ফাংশন লাল বন্ধ করে সবুজ জ্বালায়। সবুজও তিন সেকেন্ড জ্বলে।"
+      }
+    },
+    {
+      "lines": [
+        26,
+        28
+      ],
+      "anchor": "showLight(yellowPin);",
+      "title": {
+        "en": "Show yellow and repeat",
+        "bn": "হলুদ জ্বালিয়ে আবার শুরু করুন"
+      },
+      "text": {
+        "en": "Yellow stays on for one second. Then loop() restarts with red.",
+        "bn": "হলুদ এক সেকেন্ড জ্বলে। এরপর loop() আবার লাল দিয়ে শুরু হয়।"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "timed_sequence",
+      "title": {
+        "en": "Time the three lights",
+        "bn": "তিনটি বাতির সময় মাপুন"
+      },
+      "action": {
+        "en": "Start watching as red turns on. Time each color with a clock or timer.",
+        "bn": "লাল জ্বলার সময় থেকে দেখুন। ঘড়ি বা টাইমার দিয়ে প্রতিটি রঙের সময় মাপুন।"
+      },
+      "expected": {
+        "en": "Red stays on for about 3 seconds, green for about 3 seconds, and yellow for about 1 second, in that order.",
+        "bn": "ক্রমে লাল প্রায় ৩ সেকেন্ড, সবুজ প্রায় ৩ সেকেন্ড ও হলুদ প্রায় ১ সেকেন্ড জ্বলে।"
+      }
+    },
+    {
+      "id": "one_light",
+      "title": {
+        "en": "Watch a second cycle",
+        "bn": "আরেকটি চক্র দেখুন"
+      },
+      "action": {
+        "en": "Watch through yellow and wait for the sequence to start again.",
+        "bn": "হলুদ জ্বলা পর্যন্ত দেখুন, তারপর ধারা আবার শুরু হওয়া পর্যন্ত অপেক্ষা করুন।"
+      },
+      "expected": {
+        "en": "Red comes back on after yellow. Only one LED is visibly on at a time.",
+        "bn": "হলুদের পর আবার লাল জ্বলে। এক সময়ে শুধু একটি LED জ্বলতে দেখা যায়।"
+      }
+    }
+  ],
+  "issues": [
+    {
+      "symptom": {
+        "en": "The LED never lights",
+        "bn": "LED জ্বলছে না"
+      },
+      "cause": {
+        "en": "The LED may be reversed or its ground may be disconnected.",
+        "bn": "LED উল্টো লাগানো থাকতে পারে বা গ্রাউন্ড সংযোগ বিচ্ছিন্ন হতে পারে।"
+      },
+      "fix": {
+        "en": "Unplug USB. Check the flat edge (K), the resistor path to the anode (A), and the wire to J3 ground. Check that the legs are in separate rows.",
+        "bn": "USB খুলুন। সমতল ধার (K), অ্যানোড (A) পর্যন্ত রেজিস্টরের সংযোগ ও J3 গ্রাউন্ডের তার দেখুন। দুই পা আলাদা সারিতে আছে কি না মিলিয়ে নিন।"
+      },
+      "inspect": {
+        "en": "With power off, trace each LED's cathode back to the common ground row. Check whether the symptom affects one light or all three.",
+        "bn": "পাওয়ার বন্ধ রেখে প্রতিটি LED-এর ক্যাথোড সাধারণ গ্রাউন্ড সারি পর্যন্ত দেখুন। একটি বাতিতে নাকি তিনটিতেই সমস্যা দেখুন।"
+      },
+      "wireId": "D1.K>ESP.GND"
+    },
+    {
+      "symptom": {
+        "en": "The colors appear in the wrong order",
+        "bn": "বাতির রঙ ভুল ক্রমে আসছে"
+      },
+      "cause": {
+        "en": "Two resistor paths may be wired to each other’s GPIO pins.",
+        "bn": "দুটি রেজিস্টরের তার একে অন্যের GPIO পিনে লাগানো থাকতে পারে।"
+      },
+      "fix": {
+        "en": "Turn off power and check red → IO23, yellow → IO22, and green → IO21. All cathodes share GND.",
+        "bn": "বিদ্যুৎ বন্ধ করে লাল → IO23, হলুদ → IO22 ও সবুজ → IO21 মিলিয়ে নিন। সব ক্যাথোড একই GND-তে যায়।"
+      },
+      "inspect": {
+        "en": "Record the order you see. With power off, follow the yellow LED's resistor wire and compare the board label with IO22.",
+        "bn": "যে ক্রম দেখছেন লিখুন। পাওয়ার বন্ধ রেখে হলুদ LED-এর রেজিস্টরের তার অনুসরণ করুন এবং বোর্ডের লেবেল IO22-এর সঙ্গে মেলান।"
+      },
+      "wireId": "ESP.GPIO22>R2.1"
+    }
+  ]
+}
